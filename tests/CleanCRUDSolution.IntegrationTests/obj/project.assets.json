@@ -8,28 +8,6 @@
           "build/netstandard2.0/coverlet.collector.targets": {}
         }
       },
-      "Microsoft.AspNetCore.OpenApi/10.0.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.OpenApi": "2.0.0"
-        },
-        "compile": {
-          "lib/net10.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net10.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "related": ".xml"
-          }
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ],
-        "build": {
-          "build/_._": {}
-        }
-      },
       "Microsoft.CodeCoverage/17.14.1": {
         "type": "package",
         "compile": {
@@ -58,19 +36,6 @@
         "build": {
           "build/net8.0/Microsoft.NET.Test.Sdk.props": {},
           "build/net8.0/Microsoft.NET.Test.Sdk.targets": {}
-        }
-      },
-      "Microsoft.OpenApi/2.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Microsoft.OpenApi.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.OpenApi.dll": {
-            "related": ".pdb;.xml"
-          }
         }
       },
       "Microsoft.TestPlatform.ObjectModel/17.14.1": {
@@ -429,24 +394,6 @@
           "build/net8.0/xunit.runner.visualstudio.props": {}
         }
       },
-      "CleanCRUDSolution.Api/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "CleanCRUDSolution.Application": "1.0.0",
-          "CleanCRUDSolution.Infrastructure": "1.0.0",
-          "Microsoft.AspNetCore.OpenApi": "10.0.1"
-        },
-        "compile": {
-          "bin/placeholder/CleanCRUDSolution.Api.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/CleanCRUDSolution.Api.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
       "CleanCRUDSolution.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -483,6 +430,23 @@
         "runtime": {
           "bin/placeholder/CleanCRUDSolution.Infrastructure.dll": {}
         }
+      },
+      "CleanCRUDSolution.Web/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "CleanCRUDSolution.Application": "1.0.0",
+          "CleanCRUDSolution.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CleanCRUDSolution.Web.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CleanCRUDSolution.Web.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -555,24 +519,6 @@
         "coverlet-icon.png",
         "coverlet.collector.6.0.4.nupkg.sha512",
         "coverlet.collector.nuspec"
-      ]
-    },
-    "Microsoft.AspNetCore.OpenApi/10.0.1": {
-      "sha512": "gMY53EggRIFawhue66GanHcm1Tcd0+QzzMwnMl60LrEoJhGgzA9qAbLx6t/ON3hX4flc2NcEbTK1Z5GCLYHcwA==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.openapi/10.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "PACKAGE.md",
-        "THIRD-PARTY-NOTICES.TXT",
-        "analyzers/dotnet/cs/Microsoft.AspNetCore.OpenApi.SourceGenerators.dll",
-        "build/Microsoft.AspNetCore.OpenApi.targets",
-        "lib/net10.0/Microsoft.AspNetCore.OpenApi.dll",
-        "lib/net10.0/Microsoft.AspNetCore.OpenApi.xml",
-        "microsoft.aspnetcore.openapi.10.0.1.nupkg.sha512",
-        "microsoft.aspnetcore.openapi.nuspec"
       ]
     },
     "Microsoft.CodeCoverage/17.14.1": {
@@ -671,24 +617,6 @@
         "lib/net8.0/_._",
         "microsoft.net.test.sdk.17.14.1.nupkg.sha512",
         "microsoft.net.test.sdk.nuspec"
-      ]
-    },
-    "Microsoft.OpenApi/2.0.0": {
-      "sha512": "GGYLfzV/G/ct80OZ45JxnWP7NvMX1BCugn/lX7TH5o0lcVaviavsLMTxmFV2AybXWjbi3h6FF1vgZiTK6PXndw==",
-      "type": "package",
-      "path": "microsoft.openapi/2.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "lib/net8.0/Microsoft.OpenApi.dll",
-        "lib/net8.0/Microsoft.OpenApi.pdb",
-        "lib/net8.0/Microsoft.OpenApi.xml",
-        "lib/netstandard2.0/Microsoft.OpenApi.dll",
-        "lib/netstandard2.0/Microsoft.OpenApi.pdb",
-        "lib/netstandard2.0/Microsoft.OpenApi.xml",
-        "microsoft.openapi.2.0.0.nupkg.sha512",
-        "microsoft.openapi.nuspec"
       ]
     },
     "Microsoft.TestPlatform.ObjectModel/17.14.1": {
@@ -1030,11 +958,6 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "CleanCRUDSolution.Api/1.0.0": {
-      "type": "project",
-      "path": "../../src/CleanCRUDSolution.Api/CleanCRUDSolution.Api.csproj",
-      "msbuildProject": "../../src/CleanCRUDSolution.Api/CleanCRUDSolution.Api.csproj"
-    },
     "CleanCRUDSolution.Application/1.0.0": {
       "type": "project",
       "path": "../../src/CleanCRUDSolution.Application/CleanCRUDSolution.Application.csproj",
@@ -1049,14 +972,19 @@
       "type": "project",
       "path": "../../src/CleanCRUDSolution.Infrastructure/CleanCRUDSolution.Infrastructure.csproj",
       "msbuildProject": "../../src/CleanCRUDSolution.Infrastructure/CleanCRUDSolution.Infrastructure.csproj"
+    },
+    "CleanCRUDSolution.Web/1.0.0": {
+      "type": "project",
+      "path": "../../src/CleanCRUDSolution.Web/CleanCRUDSolution.Web.csproj",
+      "msbuildProject": "../../src/CleanCRUDSolution.Web/CleanCRUDSolution.Web.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "CleanCRUDSolution.Api >= 1.0.0",
       "CleanCRUDSolution.Application >= 1.0.0",
       "CleanCRUDSolution.Domain >= 1.0.0",
       "CleanCRUDSolution.Infrastructure >= 1.0.0",
+      "CleanCRUDSolution.Web >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 17.14.1",
       "coverlet.collector >= 6.0.4",
       "xunit >= 2.9.3",
@@ -1095,9 +1023,6 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\luisa\\source\\repos\\CleanCRUDSolution\\src\\CleanCRUDSolution.Api\\CleanCRUDSolution.Api.csproj": {
-              "projectPath": "C:\\Users\\luisa\\source\\repos\\CleanCRUDSolution\\src\\CleanCRUDSolution.Api\\CleanCRUDSolution.Api.csproj"
-            },
             "C:\\Users\\luisa\\source\\repos\\CleanCRUDSolution\\src\\CleanCRUDSolution.Application\\CleanCRUDSolution.Application.csproj": {
               "projectPath": "C:\\Users\\luisa\\source\\repos\\CleanCRUDSolution\\src\\CleanCRUDSolution.Application\\CleanCRUDSolution.Application.csproj"
             },
@@ -1106,6 +1031,9 @@
             },
             "C:\\Users\\luisa\\source\\repos\\CleanCRUDSolution\\src\\CleanCRUDSolution.Infrastructure\\CleanCRUDSolution.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\luisa\\source\\repos\\CleanCRUDSolution\\src\\CleanCRUDSolution.Infrastructure\\CleanCRUDSolution.Infrastructure.csproj"
+            },
+            "C:\\Users\\luisa\\source\\repos\\CleanCRUDSolution\\src\\CleanCRUDSolution.Web\\CleanCRUDSolution.Web.csproj": {
+              "projectPath": "C:\\Users\\luisa\\source\\repos\\CleanCRUDSolution\\src\\CleanCRUDSolution.Web\\CleanCRUDSolution.Web.csproj"
             }
           }
         }

@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CleanCRUDSolution.Api\CleanCRUDSolution.Api.csproj" />
     <ProjectReference Include="..\..\src\CleanCRUDSolution.Application\CleanCRUDSolution.Application.csproj" />
     <ProjectReference Include="..\..\src\CleanCRUDSolution.Domain\CleanCRUDSolution.Domain.csproj" />
     <ProjectReference Include="..\..\src\CleanCRUDSolution.Infrastructure\CleanCRUDSolution.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\CleanCRUDSolution.Web\CleanCRUDSolution.Web.csproj" />
   </ItemGroup>
 
 </Project>
