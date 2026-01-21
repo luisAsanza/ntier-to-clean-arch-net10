@@ -9,6 +9,13 @@ C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\
 C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\CleanCRUDSolution.UnitTests.dll
 C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\CleanCRUDSolution.UnitTests.pdb
 C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Options.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Primitives.dll
 C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.TestPlatform.CoreUtilities.dll
 C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.TestPlatform.PlatformAbstractions.dll
 C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll
@@ -101,3 +108,10 @@ C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\
 C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\obj\Debug\net10.0\CleanCRUDSolution.UnitTests.pdb
 C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\obj\Debug\net10.0\CleanCRUDSolution.UnitTests.genruntimeconfig.cache
 C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\obj\Debug\net10.0\ref\CleanCRUDSolution.UnitTests.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\FluentValidation.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Configuration.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\Microsoft.Extensions.Options.DataAnnotations.dll
+C:\Users\luisa\source\repos\CleanCRUDSolution\tests\CleanCRUDSolution.UnitTests\bin\Debug\net10.0\FluentValidation.DependencyInjectionExtensions.dll

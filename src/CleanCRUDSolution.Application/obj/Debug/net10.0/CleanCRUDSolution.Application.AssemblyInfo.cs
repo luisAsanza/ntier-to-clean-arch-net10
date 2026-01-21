@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CleanCRUDSolution.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a8c55cc776c3dace379fa9b9adcb0bbecd96293c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77d9a7af2caaddcb5afb0f4d0873f476d9277a80")]
 [assembly: System.Reflection.AssemblyProductAttribute("CleanCRUDSolution.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CleanCRUDSolution.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

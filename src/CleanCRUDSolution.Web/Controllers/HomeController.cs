@@ -1,24 +1,12 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using CleanCRUDSolution.Web.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace CleanCRUDSolution.Web.Controllers;
-
-public class HomeController : Controller
+namespace CRUDExample.Controllers
 {
-    public IActionResult Index()
+    public class HomeController : Controller
     {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

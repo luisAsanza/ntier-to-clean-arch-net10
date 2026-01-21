@@ -1,0 +1,36 @@
+﻿@using CleanCRUDSolution.Application.Common.Enums
+@using CleanCRUDSolution.Application.Features.Persons.Enums
+@using CleanCRUDSolution.Web.Models.PersonModels
+@model ViewPersonsColumnHeaderViewModel
+@{
+	//Default column sorting
+	SortOrder newSortOrder = SortOrder.Asc;
+
+	//If sorting is applied over the column being rendered
+	string? sortColumnRequest = Model.SearchRequest.SortColumn is null ?
+		string.Empty : Model.SearchRequest.SortColumn.ToString();
+	var isSortingByCurrentColumn = sortColumnRequest == Model.Column.Value;
+	if (isSortingByCurrentColumn && Model.SearchRequest.SortOrder == SortOrder.Asc)
+	{
+		newSortOrder = SortOrder.Desc;
+	}
+}
+
+<a 
+	asp-controller="Persons" 
+	asp-action="Index" 
+	asp-route-searchColumn="@Model.SearchRequest.SearchColumn"
+	asp-route-searchTerm="@Model.SearchRequest.SearchColumn"
+    asp-route-sortColumn="@Model.SearchRequest.SearchColumn"
+    asp-route-sortOrder="@newSortOrder">
+    @Model.Column.Text
+</a>
+
+@if (isSortingByCurrentColumn && Model.SearchRequest.SortOrder == SortOrder.Asc)
+{
+	<i class="fa-solid fa-sort-up"></i>
+}
+else if (isSortingByCurrentColumn && Model.SearchRequest.SortOrder == SortOrder.Desc)
+{
+	<i class="fa-solid fa-sort-down"></i>
+}

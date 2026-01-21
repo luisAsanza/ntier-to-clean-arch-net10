@@ -1,0 +1,120 @@
+﻿@model DeletePersonViewModel
+@{
+	ViewBag.Title = "Delete Person";
+}
+
+<a asp-controller="Persons" asp-action="Index" class="link-hover">Back to Persons List</a>
+<h2>Delete Person</h2>
+<div asp-validation-summary="All"></div>
+<div class="w-50">
+	<form asp-controller="Persons" asp-action="Delete" method="post">
+		@*Hidden*@
+		<input type="hidden" asp-for="PersonData.Id" />
+
+		@*Person Name*@
+		<div class="form-field flex">
+			<div class="w-25">
+				<label asp-for="PersonData.PersonName" class="form-label pt">Person Name</label>
+			</div>
+			<div class="flex-1">
+				<input asp-for="PersonData.PersonName" class="form-input" disabled />
+                <input type="hidden" asp-for="PersonData.PersonName" />
+				<span asp-validation-for="PersonData.PersonName" class="text-red"></span>
+			</div>
+		</div>
+
+		@*Email*@
+		<div class="form-field flex">
+			<div class="w-25">
+				<label asp-for="PersonData.Email" class="form-label pt">Email</label>
+			</div>
+			<div class="flex-1">
+				<input asp-for="PersonData.Email" class="form-input" disabled />
+                <input type="hidden" asp-for="PersonData.Email" />
+				<span asp-validation-for="PersonData.Email" class="text-red"></span>
+			</div>
+		</div>
+
+		@*DateOfBirth*@
+		<div class="form-field flex">
+			<div class="w-25">
+				<label asp-for="PersonData.DateOfBirth" class="form-label pt">Date Of Birth</label>
+			</div>
+			<div class="flex-1">
+				<input asp-for="PersonData.DateOfBirth" class="form-input" disabled />
+                <input type="hidden" asp-for="PersonData.DateOfBirth" />
+				<span asp-validation-for="PersonData.DateOfBirth" class="text-red"></span>
+			</div>
+		</div>
+
+		@*Gender*@
+		<div class="form-field flex">
+			<div class="w-25">
+				<label class="form-label">Gender</label>
+			</div>
+			<div class="flex-1">
+				<input type="hidden" asp-for="PersonData.Gender" />
+				@foreach(var gender in Model.GenderOptions)
+				{
+					var uniqueId = $"persondata_gender_{gender.Value}";
+					<input id="@uniqueId" 
+						type="radio" 
+						asp-for="PersonData.Gender" 
+						value="@gender.Value" 
+						class="ml"
+						disabled/>
+					<label for="@uniqueId">@gender.Text</label>
+				}
+				<span asp-validation-for="PersonData.Gender" class="text-red"></span>
+			</div>
+		</div>
+
+		@*Country*@
+		<div class="form-field flex">
+			<div class="w-25">
+				<label asp-for="PersonData.CountryId" class="form-label pt">Country</label>
+			</div>
+			<div class="flex-1">
+				<select asp-for="PersonData.CountryId" asp-items="Model.CountryOptions" class="form-input" disabled>
+					<option value="">Select</option>
+				</select>
+                <input type="hidden" asp-for="PersonData.CountryId" />
+				<span asp-validation-for="PersonData.CountryId" class="text-red"></span>
+			</div>
+		</div>
+
+		@*Address*@
+		<div class="form-field flex">
+			<div class="w-25">
+				<label asp-for="PersonData.Address" class="form-label pt">Address</label>
+			</div>
+			<div class="flex-1">
+				<textarea asp-for="PersonData.Address" class="form-input" disabled></textarea>
+                <input type="hidden" asp-for="PersonData.Address" />
+				<span asp-validation-for="PersonData.Address" class="text-red"></span>
+			</div>
+		</div>
+
+		@*Receive News Letter*@
+		<div class="form-field flex">
+			<div class="w-25">
+			</div>
+			<div class="flex-1">
+				<input asp-for="PersonData.ReceiveNewsLetters" value="true" disabled />
+                <input type="hidden" asp-for="PersonData.ReceiveNewsLetters" />
+				<label asp-for="PersonData.ReceiveNewsLetters" class="form-label">Receive News Letter</label>
+				<span asp-validation-for="PersonData.ReceiveNewsLetters" class="text-red"></span>
+			</div>
+		</div>
+
+		@*Submit Button*@
+		<div class="form-field flex">
+			<div class="w-25">
+			</div>
+			<div class="flex-1">
+				<button class="button button-red-back">Delete</button>				
+			</div>
+		</div>
+
+	</form>
+</div>
