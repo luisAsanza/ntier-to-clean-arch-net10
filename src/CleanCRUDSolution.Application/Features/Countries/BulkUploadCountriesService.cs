@@ -14,6 +14,9 @@ using System.Text.RegularExpressions;
 
 namespace CleanCRUDSolution.Application.Features.Countries
 {
+    /// <summary>
+    /// Handles bulk upload of countries from a provided stream and produces an import report.
+    /// </summary>
     public class BulkUploadCountriesService : IBulkUploadCountriesService
     {
         private readonly ICountryFileReader _countryFileReader;

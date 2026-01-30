@@ -12,6 +12,9 @@ using Rotativa.AspNetCore;
 
 namespace CleanCRUDSolution.Web.Controllers
 {
+    /// <summary>
+    /// MVC controller responsible for CRUD operations and report generation for Persons.
+    /// </summary>
     [Route("[controller]")]
     public class PersonsController : Controller
     {

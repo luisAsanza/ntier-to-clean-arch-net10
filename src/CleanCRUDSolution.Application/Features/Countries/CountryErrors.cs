@@ -2,6 +2,9 @@
 
 namespace CleanCRUDSolution.Application.Features.Countries
 {
+    /// <summary>
+    /// Provides commonly used Error instances for country-related operations.
+    /// </summary>
     public static class CountryErrors
     {
         public static Error FileInvalid => new (

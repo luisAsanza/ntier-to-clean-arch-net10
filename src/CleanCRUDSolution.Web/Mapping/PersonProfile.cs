@@ -5,6 +5,9 @@ using CleanCRUDSolution.Web.Models.PersonModels.Data;
 
 namespace CleanCRUDSolution.Web.Mapping
 {
+    /// <summary>
+    /// AutoMapper profile to map between application DTOs and web view models for Person entities.
+    /// </summary>
     public class PersonProfile : Profile
     {
         public PersonProfile()

@@ -3,6 +3,9 @@ using FluentValidation;
 
 namespace CleanCRUDSolution.Application.Features.Countries.Validators
 {
+    /// <summary>
+    /// Validates a `CountryRow` instance for required fields and length constraints.
+    /// </summary>
     public class CountryRowValidator : AbstractValidator<CountryRow>
     {
         public CountryRowValidator()

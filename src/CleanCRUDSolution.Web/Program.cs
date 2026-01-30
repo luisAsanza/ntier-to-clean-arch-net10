@@ -29,10 +29,10 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
+    // Instead of refirecting, we display the error page content while keeping the original URL
     app.UseStatusCodePagesWithReExecute("/Error/{0}");
-
-    // Use HSTS in production
-    //app.UseHsts();
+    // The default HSTS value is 30 days.
+    app.UseHsts();
 }
 
 // Use Serilog custom middleware to enrich logs with Username
@@ -48,8 +48,6 @@ app.Use(async (ctx, next) =>
 
 // Log every request using Serilog. app.UseHttpLogging(); can be removed so it won't generate http requests logs twice
 app.UseSerilogRequestLogging();
-
-app.Logger.LogDebug("Adding Csp configuration");
 
 //Add csp to responses
 if (app.Environment.IsDevelopment())
@@ -69,8 +67,7 @@ else if (app.Environment.IsProduction())
     app.UseCsp();
 }
 
-app.Logger.LogDebug("End of Csp configuration");
-
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.MapControllers();

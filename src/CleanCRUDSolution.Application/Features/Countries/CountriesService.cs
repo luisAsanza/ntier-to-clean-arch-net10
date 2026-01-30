@@ -7,6 +7,9 @@ using CleanCRUDSolution.Application.Features.Countries.Enums;
 
 namespace CleanCRUDSolution.Application.Features.Countries
 {
+    /// <summary>
+    /// Service providing operations related to countries, such as retrieving all countries.
+    /// </summary>
     public partial class CountriesService : ICountriesService
     {
         private readonly ICountriesRepository _countriesRepository;

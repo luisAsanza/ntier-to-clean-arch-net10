@@ -9,6 +9,9 @@ using Microsoft.Extensions.Logging;
 
 namespace CleanCRUDSolution.Application.Features.Persons
 {
+    /// <summary>
+    /// Service to perform CRUD operations and queries related to Person entities.
+    /// </summary>
     public partial class PersonService : IPersonService
     {
         private readonly IPersonsRepository _personsRepository;

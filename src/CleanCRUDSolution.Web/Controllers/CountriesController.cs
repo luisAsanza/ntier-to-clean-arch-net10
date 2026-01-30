@@ -7,6 +7,9 @@ using Microsoft.Extensions.Options;
 
 namespace CleanCRUDSolution.Web.Controllers
 {
+    /// <summary>
+    /// Controller that provides endpoints for uploading and managing countries in the web UI.
+    /// </summary>
     [Route("[controller]")]
     public class CountriesController : Controller
     {        

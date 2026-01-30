@@ -3,6 +3,10 @@ using CleanCRUDSolution.Application.Features.Countries.Enums;
 
 namespace CleanCRUDSolution.Application.Features.Countries.DTOs
 {
+    /// <summary>
+    /// Represents the result of attempting to import a list of countries from an external source.
+    /// Contains per-row items, overall outcome and any associated reasons.
+    /// </summary>
     public class CountryImportReport
     {
         public IReadOnlyList<CountryRow> CountryRowList { get; }

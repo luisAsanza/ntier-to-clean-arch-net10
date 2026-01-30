@@ -3,6 +3,10 @@ using System.Text;
 
 namespace CRUDExample.Middleware
 {
+    /// <summary>
+    /// Provides middleware extension methods to configure Content Security Policy (CSP) headers
+    /// and generate nonces for script/style whitelisting in views.
+    /// </summary>
     public static class CspMiddlewareExtensions
     {
         private const string CspNonceItemKey = "CspNonce";
@@ -47,6 +51,11 @@ namespace CRUDExample.Middleware
             });
         }
 
+        /// <summary>
+        /// Builds the CSP header value using the provided nonce for inline scripts and styles.
+        /// </summary>
+        /// <param name="nonce">The per-request nonce to include in the header.</param>
+        /// <returns>A <see cref="StringBuilder"/> containing the CSP header value.</returns>
         private static StringBuilder BuildCspHeader(string nonce)
         {
             var csp = new StringBuilder();

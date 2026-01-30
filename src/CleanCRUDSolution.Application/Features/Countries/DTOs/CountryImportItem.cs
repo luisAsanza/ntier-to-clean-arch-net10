@@ -3,6 +3,10 @@ using CleanCRUDSolution.Application.Features.Countries.Enums;
 
 namespace CleanCRUDSolution.Application.Features.Countries.DTOs
 {
+    /// <summary>
+    /// Represents a single row/item from an imported countries file including its
+    /// normalized name, status and any validation or persistence errors.
+    /// </summary>
     public class CountryImportItem
     {
         public int RowNumber { get; }
