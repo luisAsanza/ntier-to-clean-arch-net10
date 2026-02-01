@@ -23,4 +23,18 @@
     <ProjectReference Include="..\..\src\CleanCRUDSolution.Domain\CleanCRUDSolution.Domain.csproj" />
   </ItemGroup>
 
+  <!-- Test folders for organization (no code files added here) -->
+  <ItemGroup>
+    <Folder Include="Application\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Presentation\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Common\" />
+    <Folder Include="Docs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Docs\UNIT_TESTS_GUIDELINES.md" />
+  </ItemGroup>
+
 </Project>
