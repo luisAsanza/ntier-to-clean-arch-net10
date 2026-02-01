@@ -1,8 +1,6 @@
-﻿using CleanCRUDSolution.Application.Features.Countries.DTOs;
-using CleanCRUDSolution.Application.Features.Countries.Mappers;
+﻿using CleanCRUDSolution.Application.Features.Countries.Mappers;
 using Microsoft.Extensions.Logging;
 using CleanCRUDSolution.Application.Abstractions;
-using FluentValidation;
 using CleanCRUDSolution.Application.Features.Countries.Enums;
 
 namespace CleanCRUDSolution.Application.Features.Countries
