@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace CRUDExample.Middleware
+namespace CleanCRUDSolution.Web.Middleware
 {
     /// <summary>
     /// Provides middleware extension methods to configure Content Security Policy (CSP) headers

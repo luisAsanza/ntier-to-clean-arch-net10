@@ -1,10 +1,10 @@
-using CRUDExample.Middleware;
 using Rotativa.AspNetCore;
 using Serilog;
 using CleanCRUDSolution.Web.Extensions.StartupExtensions;
 using CleanCRUDSolution.Infrastructure;
 using CleanCRUDSolution.Web;
 using CleanCRUDSolution.Application;
+using CleanCRUDSolution.Web.Middleware;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

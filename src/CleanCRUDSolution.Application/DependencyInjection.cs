@@ -21,11 +21,11 @@ namespace CleanCRUDSolution.Application
             // Use cases service registrations go here            
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IBulkUploadCountriesService, BulkUploadCountriesService>();
-            services.AddScoped<CountriesService>();
+            services.AddScoped<ICountriesService, CountriesService>();
             services.AddScoped<IPersonReportService, PersonReportService>();
             services.AddScoped<ICountryImportPolicy, AbortIfAnyExistsPolicy>();
 
-            // Register Fluent Validtion for Application layer
+            // Register Fluent Validation for Application layer
             services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 
             return services;

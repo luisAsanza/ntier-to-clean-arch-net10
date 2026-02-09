@@ -10,7 +10,6 @@
         string? CountryName,
         string? Address,
         bool ReceiveNewsLetters,
-        double? Age,
-        string? TIN //This property can be removed from PersonResponse for security reasons
+        double? Age
     );
 }

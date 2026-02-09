@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Caching.Memory;
 using CleanCRUDSolution.Application.Common;
-using System.Collections.Concurrent;
+using AsyncKeyedLock;
 
 namespace CleanCRUDSolution.Infrastructure.Caching
 {
@@ -12,8 +12,11 @@ namespace CleanCRUDSolution.Infrastructure.Caching
         private readonly IMemoryCache _memoryCache;
         private readonly TimeSpan _absoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
         private readonly TimeSpan _slidingExpiration = TimeSpan.FromMinutes(10);
-
-        private static readonly ConcurrentDictionary<string, SemaphoreSlim> _locks = new();
+        private static readonly AsyncKeyedLocker<string> _keyedLocker = new(o =>
+        {
+                o.PoolSize = 50;
+                o.PoolInitialFill = 1;
+        });
 
         public MemoryCacheService(IMemoryCache memoryCache)
         {
@@ -24,10 +27,7 @@ namespace CleanCRUDSolution.Infrastructure.Caching
         {
             if (_memoryCache.TryGetValue(key, out T? result)) return result!;
 
-            var semaphore = _locks.GetOrAdd(key, _ => new SemaphoreSlim(1, 1));
-
-            await semaphore.WaitAsync();
-            try
+            using (await _keyedLocker.LockAsync(key))
             {
                 if(_memoryCache.TryGetValue(key, out result)) return result!;
 
@@ -43,16 +43,11 @@ namespace CleanCRUDSolution.Infrastructure.Caching
 
                 return result;
             }
-            finally
-            {
-                semaphore.Release();
-            }
         }
 
         public void Remove(string key)
         {
             _memoryCache.Remove(key);
-            _locks.TryRemove(key, out _);
         }
     }
 }

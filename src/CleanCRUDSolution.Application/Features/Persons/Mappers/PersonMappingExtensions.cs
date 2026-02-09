@@ -17,8 +17,7 @@ namespace CleanCRUDSolution.Application.Features.Persons.Mappers
                 person.Country?.Name,
                 person.Address,
                 person.ReceiveNewsLetters,
-                CalculateAge(person.DateOfBirth),
-                person.TIN);
+                CalculateAge(person.DateOfBirth));
         }
 
         public static Person ToPerson(this PersonAddRequest request, DateOnly today)

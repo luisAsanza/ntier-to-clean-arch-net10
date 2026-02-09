@@ -48,11 +48,7 @@ namespace CleanCRUDSolution.Infrastructure
             services.AddKeyedScoped<IPersonReportGenerator, ExcelPersonReportGenerator>(ReportOptions.Excel);
 
             // Register Countries Service with Caching Decorator
-            services.AddScoped<ICountriesService>(provider =>
-                new CountriesCachedService(
-                    provider.GetRequiredService<CountriesService>(),
-                    provider.GetRequiredService<ICacheService>()
-            ));
+            services.Decorate<ICountriesService, CountriesCachedService>();
 
             // Register File Reader Service
             services.AddScoped<ICountryFileReader, CountryExcelFileReader>();
