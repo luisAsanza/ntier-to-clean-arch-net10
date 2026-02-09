@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace CRUDExample.Controllers
+namespace CleanCRUDSolution.Web.Controllers
 {
     public class HomeController : Controller
     {

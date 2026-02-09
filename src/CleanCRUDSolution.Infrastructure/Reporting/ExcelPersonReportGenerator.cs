@@ -2,7 +2,7 @@
 using CleanCRUDSolution.Application.Features.Reporting;
 using CleanCRUDSolution.Application.Features.Persons.DTOs;
 
-namespace CleanCRUDSolution.Application.Services.ReportGenerator
+namespace CleanCRUDSolution.Infrastructure.Reporting
 {
     public class ExcelPersonReportGenerator : IPersonReportGenerator
     {

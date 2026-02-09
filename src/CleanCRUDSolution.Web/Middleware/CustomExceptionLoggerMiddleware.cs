@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using System.Text;
 
-namespace CRUDExample.Middleware
+namespace CleanCRUDSolution.Web.Middleware
 {
     public class CustomExceptionLoggerMiddleware
     {

@@ -4,7 +4,6 @@ using CleanCRUDSolution.Application.Common.Enums;
 using CleanCRUDSolution.Application.Common.Events;
 using CleanCRUDSolution.Application.Features.Countries;
 using CleanCRUDSolution.Application.Features.Reporting;
-using CleanCRUDSolution.Application.Services.ReportGenerator;
 using CleanCRUDSolution.Domain.Common.Time;
 using CleanCRUDSolution.Infrastructure.Caching;
 using CleanCRUDSolution.Infrastructure.Events;
