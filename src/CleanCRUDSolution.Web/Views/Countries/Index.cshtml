@@ -1,0 +1,40 @@
+﻿@model UploadCountriesViewModel
+@{
+    ViewBag.Title = "Upload Countries from Excel";
+}
+
+<h2>Upload Countries from Excel</h2>
+@if(Model is not null)
+{
+    <div class="alert alert-success">
+        @if(Model.PersistedItemsCount.HasValue)
+        {
+            <text>
+                <strong>@(Model.PersistedItemsCount)</strong> countries have been uploaded successfully.
+            </text>
+        }        
+        <strong>@Model.ReportOutcome</strong>
+        <strong>@Model.ReportOutcomeReason</strong>
+    </div>
+}
+<span asp-validation-summary="ModelOnly" class="text-red"></span>
+<div class="w-50">
+    <form asp-action="UploadFromExcel" asp-controller="Countries" enctype="multipart/form-data" method="post">
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt">Choose an xlsx file</label>
+            </div>
+            <div class="flex-1">
+                <input asp-for="FormFile" class="form-input" />
+                <span asp-validation-for="FormFile" class="text-red"></span>
+            </div>
+        </div>   
+        
+        <div class="form-field flex">
+            <div class="w-25"></div>
+            <div class="flex-1">
+                <button type="submit" class="button button-green-back">Upload</button>
+            </div>
+        </div>
+    </form>
+</div>
