@@ -23,13 +23,17 @@ namespace CleanCRUDSolution.Infrastructure
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, 
             IConfiguration configuration)
         {
-            // Configure DbContext with SQL Server
+            // Configure DbContext with SQL Server            
             var connectionString = configuration.GetConnectionString("DefaultConnection");
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
+            }
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(connectionString, c =>
                 {
-                    c.MigrationsAssembly(typeof(InfrastructureAssemblyMarker).Assembly.FullName);
+                    c.MigrationsAssembly(typeof(InfrastructureAssemblyMarker).Assembly.GetName().Name);
                 });
             });
 
@@ -47,8 +51,15 @@ namespace CleanCRUDSolution.Infrastructure
             services.AddKeyedScoped<IPersonReportGenerator, ExcelPersonReportGenerator>(ReportOptions.Excel);
 
             // Register Countries Service with Caching Decorator
-            services.Decorate<ICountriesService, CountriesCachedService>();
-
+            if(services.Any(s => s.ServiceType == typeof(ICountriesService)))
+            {
+                services.Decorate<ICountriesService, CountriesCachedService>();
+            }
+            else
+            {
+                throw new InvalidOperationException("CRITICAL: ountriesService must be registered before adding caching decorator.");
+            }
+            
             // Register File Reader Service
             services.AddScoped<ICountryFileReader, CountryExcelFileReader>();
             services.AddScoped<IXlsxSafetyValidator, XlsxSafetyValidator>();
