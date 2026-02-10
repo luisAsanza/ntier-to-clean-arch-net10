@@ -29,7 +29,7 @@ namespace CleanCRUDSolution.Web.Extensions
                 PersonColumn.Gender => "Gender",
                 PersonColumn.Country => "Country",
                 PersonColumn.Address => "Address",
-                PersonColumn.ReceiveNewsletter => "Receive NewsLetter",
+                PersonColumn.ReceiveNewsletter => "Receive Newsletter",
                 _ => "Unknown"
             };
     }
