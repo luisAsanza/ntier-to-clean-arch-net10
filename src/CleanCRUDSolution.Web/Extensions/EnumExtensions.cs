@@ -1,37 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 
 namespace CleanCRUDSolution.Web.Extensions
 {
     /// <summary>
-    /// Helper extensions for working with enums in Razor pages and view models.
+    /// Provides helper extension methods for converting enums to web-friendly representations.
     /// </summary>
     public static class EnumExtensions
     {
         /// <summary>
-        /// Converts an enum type to a list of <see cref="SelectListItem"/> for use in select inputs.
+        /// Converts all values of the specified enum type to a read-only list of <see cref="SelectListItem"/>.
         /// </summary>
-        public static IReadOnlyList<SelectListItem> ToSelectListItem<TEnum>() where TEnum : struct, Enum
+        /// <typeparam name="TEnum">The enum type to convert.</typeparam>
+        /// <param name="labelProvider">A function that provides the display label for each enum value.</param>
+        /// <returns>A read-only list of <see cref="SelectListItem"/> where <c>Value</c> is the enum name and <c>Text</c> is the provided label.</returns>
+        public static IReadOnlyList<SelectListItem> ToSelectListItem<TEnum>(
+            Func<TEnum, string> labelProvider)
+            where TEnum : struct, Enum
         {
             var values = Enum.GetValues<TEnum>();
             return values.Select(e => new SelectListItem()
             {
                 Value = e.ToString(),
-                Text = GetDisplayName(e)
+                Text = labelProvider(e)
             }).ToList();
         }
-
+        
         /// <summary>
-        /// Resolves the friendly display name of an enum value using the <see cref="DisplayAttribute"/>,
-        /// falling back to the enum's name if not present.
+        /// Converts all values of the specified enum type to a read-only list of <see cref="SelectListItem"/>,
+        /// using the enum name as the display label.
         /// </summary>
-        private static string GetDisplayName(Enum value)
-        {
-            var type = value.GetType();
-            var member = type.GetMember(value.ToString()).First();
-            var displayAttribute = member.GetCustomAttribute<DisplayAttribute>();
-            return displayAttribute?.Name ?? value.ToString();
+        /// <typeparam name="TEnum">The enum type to convert.</typeparam>
+        /// <returns>A read-only list of <see cref="SelectListItem"/> where both <c>Value</c> and <c>Text</c> are the enum name.</returns>
+        public static IReadOnlyList<SelectListItem> ToSelectListItem<TEnum>() where TEnum : struct, Enum
+        {            
+            return ToSelectListItem<TEnum>(e => e.ToString()); // Default to enum name if no label provider is given
         }
     }
 }
+

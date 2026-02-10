@@ -19,10 +19,10 @@
 <a 
 	asp-controller="Persons" 
 	asp-action="Index" 
-	asp-route-searchColumn="@Model.SearchRequest.SearchColumn"
-	asp-route-searchTerm="@Model.SearchRequest.SearchColumn"
-    asp-route-sortColumn="@Model.SearchRequest.SearchColumn"
-    asp-route-sortOrder="@newSortOrder">
+	asp-route-searchRequest.searchColumn="@Model.SearchRequest.SearchColumn"
+	asp-route-searchRequest.searchTerm="@Model.SearchRequest.SearchTerm"
+    asp-route-searchRequest.sortColumn="@Model.Column.Value"
+    asp-route-searchRequest.sortOrder="@newSortOrder">
     @Model.Column.Text
 </a>
 

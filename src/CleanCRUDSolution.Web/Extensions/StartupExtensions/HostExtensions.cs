@@ -15,7 +15,8 @@ namespace CleanCRUDSolution.Web.Extensions.StartupExtensions
             builder.Host.UseSerilog((context, sp, loggerConfiguration) => {
                 loggerConfiguration
                 .ReadFrom.Services(sp)
-                .Enrich.WithMachineName();
+                .Enrich.WithMachineName()
+                .WriteTo.Console();
             });
         }
 

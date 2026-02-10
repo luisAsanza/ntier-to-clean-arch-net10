@@ -29,6 +29,7 @@ namespace CleanCRUDSolution.Infrastructure.Repositories
                 PersonColumn.DateOfBirth => ApplySearchDob(query, searchTerm),
                 PersonColumn.Age => ApplySearchAge(query, searchTerm, today),
                 PersonColumn.Gender => ApplySearchGender(query, searchTerm),
+                PersonColumn.Country => query.Where(p => p.Country != null && p.Country.Name.Contains(searchTerm)),
                 PersonColumn.Address => query.Where(p => p.Address != null && p.Address.Contains(searchTerm)),
                 PersonColumn.ReceiveNewsletter => ApplySearchReceiveNewsLetter(query, searchTerm),
                 _ => query
@@ -58,6 +59,9 @@ namespace CleanCRUDSolution.Infrastructure.Repositories
 
                 (PersonColumn.Gender, SortOrder.Asc) => query.OrderBy(p => p.Gender),
                 (PersonColumn.Gender, SortOrder.Desc) => query.OrderByDescending(p => p.Gender),
+
+                (PersonColumn.Country, SortOrder.Asc) => query.OrderBy(p => p.Country != null ? p.Country.Name : string.Empty),
+                (PersonColumn.Country, SortOrder.Desc) => query.OrderByDescending(p => p.Country != null ? p.Country.Name : string.Empty),
 
                 (PersonColumn.Address, SortOrder.Asc) => query.OrderBy(p => p.Address),
                 (PersonColumn.Address, SortOrder.Desc) => query.OrderByDescending(p => p.Address),
