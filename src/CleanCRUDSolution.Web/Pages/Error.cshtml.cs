@@ -9,7 +9,7 @@ namespace CleanCRUDSolution.Web.Pages
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
         // Add this property
-        public new int StatusCode { get; set; } = 500;
+        public int StatusCode { get; set; } = 500;
 
         private readonly ILogger<ErrorModel> _logger;
 

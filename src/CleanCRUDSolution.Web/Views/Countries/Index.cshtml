@@ -4,7 +4,7 @@
 }
 
 <h2>Upload Countries from Excel</h2>
-@if(Model is not null)
+@if (!string.IsNullOrWhiteSpace(Model.ReportOutcome) || Model.PersistedItemsCount.HasValue)
 {
     <div class="alert alert-success">
         @if(Model.PersistedItemsCount.HasValue)
