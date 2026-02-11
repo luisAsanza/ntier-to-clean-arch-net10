@@ -112,7 +112,7 @@ namespace CleanCRUDSolution.Infrastructure.Repositories
 
             if (DateOnly.TryParseExact(searchTerm, "dd MM yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateOnly dateOfBirthSearch))
             {
-                return query.Where(p => p.DateOfBirth.HasValue && p.DateOfBirth.HasValue && p.DateOfBirth == dateOfBirthSearch);
+                return query.Where(p => p.DateOfBirth.HasValue && p.DateOfBirth == dateOfBirthSearch);
             }
             
             return query.Where(t => false);
