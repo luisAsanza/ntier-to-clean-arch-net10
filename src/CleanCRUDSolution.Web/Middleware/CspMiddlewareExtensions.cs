@@ -60,8 +60,8 @@ namespace CleanCRUDSolution.Web.Middleware
         {
             var csp = new StringBuilder();
             csp.Append("default-src 'self'; ");
-            csp.Append($"script-src 'self' 'nonce-{nonce}' https:; ");
-            csp.Append($"style-src 'self' 'nonce-{nonce}' https:; ");
+            csp.Append($"script-src 'self' 'nonce-{nonce}'; ");
+            csp.Append($"style-src 'self' 'nonce-{nonce}'; ");
             csp.Append("img-src 'self' data: blob: https:; ");
             csp.Append("font-src 'self' https:; ");
             csp.Append("connect-src 'self' https:; ");

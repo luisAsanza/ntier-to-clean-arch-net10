@@ -57,7 +57,7 @@ namespace CleanCRUDSolution.Infrastructure
             }
             else
             {
-                throw new InvalidOperationException("CRITICAL: ountriesService must be registered before adding caching decorator.");
+                throw new InvalidOperationException("CRITICAL: CountriesService must be registered before adding caching decorator.");
             }
             
             // Register File Reader Service

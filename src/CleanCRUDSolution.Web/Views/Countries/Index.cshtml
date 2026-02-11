@@ -4,7 +4,7 @@
 }
 
 <h2>Upload Countries from Excel</h2>
-@if(Model is not null)
+@if (!string.IsNullOrWhiteSpace(Model.ReportOutcome) || Model.PersistedItemsCount.HasValue)
 {
     <div class="alert alert-success">
         @if(Model.PersistedItemsCount.HasValue)
@@ -19,13 +19,13 @@
 }
 <span asp-validation-summary="ModelOnly" class="text-red"></span>
 <div class="w-50">
-    <form asp-action="UploadFromExcel" asp-controller="Countries" enctype="multipart/form-data" method="post">
+    <form asp-action="Index" asp-controller="Countries" enctype="multipart/form-data" method="post">
         <div class="form-field flex">
             <div class="w-25">
                 <label class="form-label pt">Choose an xlsx file</label>
             </div>
             <div class="flex-1">
-                <input asp-for="FormFile" class="form-input" />
+                <input asp-for="FormFile" class="form-input" type="file" />
                 <span asp-validation-for="FormFile" class="text-red"></span>
             </div>
         </div>   

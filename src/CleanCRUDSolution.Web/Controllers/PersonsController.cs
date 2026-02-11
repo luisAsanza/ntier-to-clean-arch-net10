@@ -6,6 +6,7 @@ using CleanCRUDSolution.Application.Features.Persons.DTOs;
 using CleanCRUDSolution.Web.Extensions;
 using CleanCRUDSolution.Web.Models.PersonModels;
 using CleanCRUDSolution.Web.Models.PersonModels.Data;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Rotativa.AspNetCore;
@@ -23,19 +24,22 @@ namespace CleanCRUDSolution.Web.Controllers
         private readonly IPersonReportService _personReportService;
         private readonly IMapper _mapper;
         private readonly ILogger<PersonsController> _logger;
+        private readonly IValidator<PersonDataVM> _personDataValidator;
 
         public PersonsController(
             IPersonService personService,
             ICountriesService countriesService,
             IPersonReportService personReportService,
             IMapper mapper,
-            ILogger<PersonsController> logger)
+            ILogger<PersonsController> logger,
+            IValidator<PersonDataVM> personDataValidator)
         {
             _personService = personService;
             _countriesService = countriesService;
             _personReportService = personReportService;
             _mapper = mapper;
             _logger = logger;
+            _personDataValidator = personDataValidator;
         }
 
         [Route("index")]
@@ -72,6 +76,12 @@ namespace CleanCRUDSolution.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreatePersonViewModel model)
         {
+            var validationResult = await _personDataValidator.ValidateAsync(model.PersonData);
+            if (!validationResult.IsValid)
+            {
+                ModelState.AddFluentValidationErrors(validationResult, nameof(CreatePersonViewModel.PersonData));
+            }
+
             if(!ModelState.IsValid)
             {
                 var countries = await _countriesService.GetAllCountriesAsync();
@@ -119,6 +129,12 @@ namespace CleanCRUDSolution.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(UpdatePersonViewModel model)
         {
+            var validationResult = await _personDataValidator.ValidateAsync(model.PersonData);
+            if (!validationResult.IsValid)
+            {
+                ModelState.AddFluentValidationErrors(validationResult, nameof(UpdatePersonViewModel.PersonData));
+            }
+
             if(!ModelState.IsValid)
             {
                 model.CountryOptions = _mapper.Map<List<SelectListItem>>(await _countriesService.GetAllCountriesAsync());

@@ -6,7 +6,7 @@
 <h2>Edit Person</h2>
 <div asp-validation-summary="All"></div>
 <div class="w-50">
-	<form id="EditPersonForm" asp-controller="Persons" asp-action="Edit" method="post">
+	<form id="EditPersonForm" asp-controller="Persons" asp-action="Edit" asp-route-personId="" method="post">
 		@*Hidden*@
 		<input type="hidden" asp-for="PersonData.Id" />
 
@@ -100,7 +100,7 @@
 			<div class="w-25">
 			</div>
 			<div class="flex-1">
-				<button id="UpdatePersonBtn" class="button button-green-back">Update</button>				
+				<button type="submit" id="UpdatePersonBtn" class="button button-green-back">Update</button>				
 			</div>
 		</div>
 

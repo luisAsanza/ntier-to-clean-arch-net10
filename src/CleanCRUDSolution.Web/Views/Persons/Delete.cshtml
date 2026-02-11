@@ -7,7 +7,7 @@
 <h2>Delete Person</h2>
 <div asp-validation-summary="All"></div>
 <div class="w-50">
-	<form asp-controller="Persons" asp-action="Delete" method="post">
+	<form asp-controller="Persons" asp-action="Delete" asp-route-personId="" method="post">
 		@*Hidden*@
 		<input type="hidden" asp-for="PersonData.Id" />
 

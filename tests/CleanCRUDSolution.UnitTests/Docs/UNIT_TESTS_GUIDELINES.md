@@ -1,4 +1,4 @@
-# Unit Test Guidelines — CleanCRUDSolution
+# Unit Test Guidelines ï¿½ CleanCRUDSolution
 
 Purpose
 - Document organization, naming, test priorities and frameworks used for the `CleanCRUDSolution.UnitTests` project.
@@ -11,15 +11,15 @@ Suggested location
 Top-level principles
 - Test behavior, not implementation.
 - Keep unit tests fast and deterministic; mock external dependencies (repositories, I/O, network).
-- Use integration tests for infrastructure (EF Core, file system, external services).
+- This project is for unit tests only; integration tests should go in `CleanCRUDSolution.IntegrationTests` with real infrastructure.
 
 Folder structure (under `tests/CleanCRUDSolution.UnitTests`)
-- `Domain/Entities` — Entity and value-object tests (e.g., `CountryTests.cs`)
-- `Application/Features/<FeatureName>` — Services, use-cases, handlers, validators, and mappers (e.g., `CountriesServiceTests.cs`)
-- `Presentation/Pages/<AreaOrFeature>` — Razor PageModel logic (unit-test PageModel methods and ModelState behavior)
-- `Infrastructure` — Only small adapter logic; prefer integration tests for real infra
-- `Common` — Test fixtures, shared builders, test doubles, and helper utilities
-- `Docs` — This guidelines file and any test-related documentation
+- `Domain/Entities` ï¿½ Entity and value-object tests (e.g., `CountryTests.cs`)
+- `Application/Features/<FeatureName>` ï¿½ Services, use-cases, handlers, validators, and mappers (e.g., `CountriesServiceTests.cs`)
+- `Presentation/Pages/<AreaOrFeature>` ï¿½ Razor PageModel logic (unit-test PageModel methods and ModelState behavior)
+- `Infrastructure` ï¿½ Only small adapter logic; Mock infrastructure dependencies in application layer tests, but if an adapter has meaningful logic, it can be tested here.
+- `Common` ï¿½ Test fixtures, shared builders, test doubles, and helper utilities
+- `Docs` ï¿½ This guidelines file and any test-related documentation
 
 File & test naming
 - Test class files: `<ClassUnderTest>Tests.cs` (e.g., `CountriesServiceTests.cs`)
@@ -33,18 +33,17 @@ Test priorities
 4. Infrastructure adapters (only when they contain meaningful logic)
 
 Frameworks and tooling used in this project
-- xUnit — test runner / unit-test framework
-- FluentAssertions — expressive assertions
-- Moq — mocking framework
-- AutoFixture — automatic test data generation
+- xUnit ï¿½ test runner / unit-test framework
+- FluentAssertions ï¿½ expressive assertions
+- NSubstitute ï¿½ mocking framework
+- AutoFixture ï¿½ automatic test data generation
 
 Recommended packages to add to `tests/CleanCRUDSolution.UnitTests` (example)
 - `xunit`
 - `xunit.runner.visualstudio`
 - `FluentAssertions`
-- `Moq`
+- `NSubstitute`
 - `AutoFixture`
-- `AutoFixture.AutoMoq` (optional helper for Moq integration)
 
 Quick example: test location for `CountriesService`
 - `tests/CleanCRUDSolution.UnitTests/Application/Features/Countries/CountriesServiceTests.cs`

@@ -10,7 +10,7 @@ namespace CleanCRUDSolution.Application.Features.Persons.Validators
         public PersonUpdateRequestValidator(IClock clock)
         {
             RuleFor(p => p)
-                .NotNull().WithMessage("Person add request cannot be null").WithErrorCode("person.request.null");
+                .NotNull().WithMessage("Person update request cannot be null").WithErrorCode("person.request.null");
 
             RuleFor(p => p.Email)
                 .EmailAddress()

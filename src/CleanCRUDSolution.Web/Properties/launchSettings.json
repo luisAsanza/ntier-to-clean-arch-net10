@@ -1,5 +1,6 @@
 ﻿{
   "$schema": "https://json.schemastore.org/launchsettings.json",
+  "hotReloadProfile": "aspnetcore",
   "profiles": {
     "http": {
       "commandName": "Project",

@@ -43,7 +43,7 @@ namespace CleanCRUDSolution.Domain.Entities
 
         public void MoveTo(Guid countryId, string newAddress)
         {
-            CountryId = Guard.NotEmpty(countryId, nameof(CountryId));
+            CountryId = Guard.NotEmpty(countryId, nameof(countryId));
             Address = Guard.NotNullOrWhiteSpace(newAddress, nameof(newAddress));
             TIN = null; // Reset TIN when moving to a new country
         }

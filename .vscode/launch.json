@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Core Launch (Web)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "console": "internalConsole",
+      "program": "${workspaceFolder}/src/CleanCRUDSolution.Web/bin/Debug/net10.0/CleanCRUDSolution.Web.dll",
+      "cwd": "${workspaceFolder}/src/CleanCRUDSolution.Web",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "debugWithChrome",
+        "pattern": "Now listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/src/CleanCRUDSolution.Web/Views"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run Web + Chrome",
+      "configurations": [ ".NET Core Launch (Web)" ]
+    }
+  ]
+}
