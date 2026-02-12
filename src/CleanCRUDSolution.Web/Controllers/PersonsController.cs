@@ -42,7 +42,6 @@ namespace CleanCRUDSolution.Web.Controllers
             _personDataValidator = personDataValidator;
         }
 
-        [Route("index")]
         [Route("/")]
         [HttpGet]
         public async Task<IActionResult> Index(ViewPersonsViewModel model)

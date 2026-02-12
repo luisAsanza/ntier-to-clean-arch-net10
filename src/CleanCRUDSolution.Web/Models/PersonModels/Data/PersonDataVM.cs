@@ -4,7 +4,7 @@ namespace CleanCRUDSolution.Web.Models.PersonModels.Data
 {
     public class PersonDataVM
     {
-        [Required(ErrorMessage = "Persons name can't be empty")]
+        [Required(ErrorMessage = "Person's name can't be empty")]
         [MaxLength(80)]
         public string? PersonName { get; set; }
 

@@ -1,4 +1,5 @@
 
+using System.Data;
 using CleanCRUDSolution.Web.Models.PersonModels.Data;
 using FluentValidation;
 
@@ -17,6 +18,10 @@ namespace CleanCRUDSolution.Web.Validators
             .NotEmpty()
             .When(x => x.CountryId.HasValue)
             .WithMessage("Address is required when country is provided.");
+
+            RuleFor(x => x.DateOfBirth)
+            .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.Today))
+            .WithMessage("Date of birth must be in the past.");
         }
     }
 }
