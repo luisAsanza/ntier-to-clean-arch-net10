@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace CleanCRUDSolution.IntegrationTests;
 
-public class PersonsControllerIntegrationTest : IClassFixture<CustomWebApplicationFactory>
+public class PersonsControllerTest : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly CustomWebApplicationFactory _factory;
     private readonly HttpClient _client;
 
-    public PersonsControllerIntegrationTest(CustomWebApplicationFactory factory)
+    public PersonsControllerTest(CustomWebApplicationFactory factory)
     {
         _factory = factory;
         _client = _factory.CreateClient(new WebApplicationFactoryClientOptions
@@ -42,7 +42,7 @@ public class PersonsControllerIntegrationTest : IClassFixture<CustomWebApplicati
         // Arrange
         using var scope = _factory.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        var person = db.Persons.First();
+        var person = db.Persons.FirstOrDefault();
         person.Should().NotBeNull();
         person.Id.Should().NotBeEmpty();
 
@@ -61,7 +61,7 @@ public class PersonsControllerIntegrationTest : IClassFixture<CustomWebApplicati
         // Arrange
         using var scope = _factory.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        var person = db.Persons.First();
+        var person = db.Persons.FirstOrDefault();
         person.Should().NotBeNull();
         person.Id.Should().NotBeEmpty();
 
@@ -99,7 +99,8 @@ public class PersonsControllerIntegrationTest : IClassFixture<CustomWebApplicati
         if (antiForgeryToken is not null)
             formData.Add(new KeyValuePair<string, string>("__RequestVerificationToken", antiForgeryToken));
 
-        var postResponse = await _client.PostAsync(postUrl, new FormUrlEncodedContent(formData));
+        using var content = new FormUrlEncodedContent(formData);
+        var postResponse = await _client.PostAsync(postUrl, content);
 
         // Assert: should redirect to home (/)
         postResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.Redirect);
@@ -112,7 +113,7 @@ public class PersonsControllerIntegrationTest : IClassFixture<CustomWebApplicati
         // Arrange
         using var scope = _factory.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        var person = db.Persons.First();
+        var person = db.Persons.FirstOrDefault();
         person.Should().NotBeNull();
         person.Id.Should().NotBeEmpty();
 
@@ -121,7 +122,6 @@ public class PersonsControllerIntegrationTest : IClassFixture<CustomWebApplicati
         var postUrl = "/Persons/Edit";
         var getResponse = await _client.GetAsync(getUrl);
         getResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
-        var html = await getResponse.Content.ReadAsStringAsync();
 
         // Build form data WITHOUT the antiforgery token
         var dob = person.DateOfBirth ?? DateOnly.FromDateTime(DateTime.UtcNow.AddYears(-30));
@@ -140,7 +140,8 @@ public class PersonsControllerIntegrationTest : IClassFixture<CustomWebApplicati
             new KeyValuePair<string, string>("PersonData.ReceiveNewsLetters", person.ReceiveNewsLetters ? "true" : "false"),
         };
 
-        var postResponse = await _client.PostAsync(postUrl, new FormUrlEncodedContent(formData));
+        using var content = new FormUrlEncodedContent(formData);
+        var postResponse = await _client.PostAsync(postUrl, content);
 
         // Assert: Missing antiforgery token is throwing NotFound (404) in test environment.
         // So we assert that the request was rejected.
@@ -156,7 +157,7 @@ public class PersonsControllerIntegrationTest : IClassFixture<CustomWebApplicati
         // Arrange
         using var scope = _factory.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        var person = db.Persons.First();
+        var person = db.Persons.FirstOrDefault();
         person.Should().NotBeNull();
         person.Id.Should().NotBeEmpty();
 
@@ -191,7 +192,8 @@ public class PersonsControllerIntegrationTest : IClassFixture<CustomWebApplicati
         if (antiForgeryToken is not null)
             formData.Add(new KeyValuePair<string, string>("__RequestVerificationToken", antiForgeryToken));
 
-        var postResponse = await _client.PostAsync(postUrl, new FormUrlEncodedContent(formData));
+        using var content = new FormUrlEncodedContent(formData);
+        var postResponse = await _client.PostAsync(postUrl, content);
         var postHtml = await postResponse.Content.ReadAsStringAsync();
         var decodedHtml = System.Net.WebUtility.HtmlDecode(postHtml);
 

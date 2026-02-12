@@ -37,7 +37,6 @@ namespace CRUDExample.Controllers
             _diagnosticContext = diagnosticContext;
         }
 
-        [Route("index")]
         [Route("/")]
         [TypeFilter(typeof(PersonsListActionFilter))]
         [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] { "X-Custom-Key", "X-Custom-Value", 1 })]

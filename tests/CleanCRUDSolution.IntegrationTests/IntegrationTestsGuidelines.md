@@ -61,7 +61,7 @@ public class PersonsControllerIntegrationTest : IClassFixture<WebApplicationFact
     [Fact]
     public async Task GetPersons_ReturnsOk()
     {
-        var response = await _client.GetAsync("/api/persons");
+        var response = await _client.GetAsync("/persons");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }
