@@ -7,9 +7,7 @@ namespace CleanCRUDSolution.Web.Pages
     {
         public string? RequestId { get; set; }
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
-        // Add this property
-        public int StatusCode { get; set; } = 500;
+        public int ErrorStatusCode { get; set; } = 500;
 
         private readonly ILogger<ErrorModel> _logger;
 
@@ -23,7 +21,7 @@ namespace CleanCRUDSolution.Web.Pages
             RequestId = HttpContext.TraceIdentifier;
 
             // Capture the code, default to 500 if null
-            StatusCode = code ?? 500;
+            ErrorStatusCode = code ?? 500;
 
             //Log the error with status code
             var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();

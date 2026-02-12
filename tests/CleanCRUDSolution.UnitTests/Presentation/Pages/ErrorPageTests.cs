@@ -25,7 +25,7 @@ namespace CleanCRUDSolution.UnitTests.Presentation.Pages
             model.OnGet(404);
 
             model.RequestId.Should().Be("trace-123");
-            model.StatusCode.Should().Be(404);
+            model.ErrorStatusCode.Should().Be(404);
             model.ShowRequestId.Should().BeTrue();
         }
 
@@ -45,7 +45,7 @@ namespace CleanCRUDSolution.UnitTests.Presentation.Pages
             model.OnGet(null);
 
             model.RequestId.Should().Be("trace-xyz");
-            model.StatusCode.Should().Be(500);
+            model.ErrorStatusCode.Should().Be(500);
             model.ShowRequestId.Should().BeTrue();
         }
     }

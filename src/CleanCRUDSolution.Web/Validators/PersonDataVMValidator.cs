@@ -17,6 +17,10 @@ namespace CleanCRUDSolution.Web.Validators
             .NotEmpty()
             .When(x => x.CountryId.HasValue)
             .WithMessage("Address is required when country is provided.");
+
+            RuleFor(x => x.DateOfBirth)
+            .LessThan(DateOnly.FromDateTime(DateTime.Today))
+            .WithMessage("Date of birth must be in the past.");
         }
     }
 }
