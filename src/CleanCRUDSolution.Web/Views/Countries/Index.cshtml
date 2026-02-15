@@ -3,38 +3,36 @@
     ViewBag.Title = "Upload Countries from Excel";
 }
 
-<h2>Upload Countries from Excel</h2>
-@if (!string.IsNullOrWhiteSpace(Model.ReportOutcome) || Model.PersistedItemsCount.HasValue)
-{
-    <div class="alert alert-success">
-        @if(Model.PersistedItemsCount.HasValue)
-        {
-            <text>
-                <strong>@(Model.PersistedItemsCount)</strong> countries have been uploaded successfully.
-            </text>
-        }        
-        <strong>@Model.ReportOutcome</strong>
-        <strong>@Model.ReportOutcomeReason</strong>
+<div class="container">
+  <section class="page-header">
+    <div class="header-inner">
+      <h1>Upload Countries from Excel</h1>
     </div>
-}
-<span asp-validation-summary="ModelOnly" class="text-red"></span>
-<div class="w-50">
+  </section>
+
+  @if (!string.IsNullOrWhiteSpace(Model.ReportOutcome) || Model.PersistedItemsCount.HasValue)
+  {
+      <div class="alert alert-success" role="status" style="margin-bottom:12px">
+          @if(Model.PersistedItemsCount.HasValue)
+          {
+              <div><strong>@(Model.PersistedItemsCount)</strong> countries have been uploaded successfully.</div>
+          }
+          <div><strong>@Model.ReportOutcome</strong></div>
+          <div>@Model.ReportOutcomeReason</div>
+      </div>
+  }
+
+  <div class="card">
     <form asp-action="Index" asp-controller="Countries" enctype="multipart/form-data" method="post">
-        <div class="form-field flex">
-            <div class="w-25">
-                <label class="form-label pt">Choose an xlsx file</label>
-            </div>
-            <div class="flex-1">
-                <input asp-for="FormFile" class="form-input" type="file" />
-                <span asp-validation-for="FormFile" class="text-red"></span>
-            </div>
-        </div>   
-        
-        <div class="form-field flex">
-            <div class="w-25"></div>
-            <div class="flex-1">
-                <button type="submit" class="button button-green-back">Upload</button>
-            </div>
+      <div style="max-width:560px;padding:18px">
+        <label class="form-label" for="FormFile">Choose an xlsx file</label>
+        <input asp-for="FormFile" class="form-input" type="file" id="FormFile" />
+        <span asp-validation-for="FormFile" class="text-red" style="display:block;margin-top:6px"></span>
+
+        <div style="margin-top:16px">
+          <button type="submit" class="btn btn-primary">Upload</button>
         </div>
+      </div>
     </form>
+  </div>
 </div>

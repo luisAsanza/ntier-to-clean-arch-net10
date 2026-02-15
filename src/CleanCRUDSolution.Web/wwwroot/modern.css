@@ -30,6 +30,7 @@ body {
 .btn { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:10px; border:1px solid transparent; text-decoration:none; font-weight:500; }
 .btn-primary { background:var(--accent); color:#fff; box-shadow:0 6px 18px rgba(37,99,235,0.12); }
 .btn-ghost { background:transparent; border-color:transparent; color:var(--muted); padding:8px 10px; border-radius:8px; }
+.btn-danger { background:var(--danger); color:#fff; }
 .link-muted { color:var(--muted); text-decoration:none; padding:8px; }
 
 .search-form .search-grid { display:grid; grid-template-columns:180px 1fr auto; gap:12px; align-items:center; margin:16px 0; }
