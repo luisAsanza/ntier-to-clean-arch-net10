@@ -144,7 +144,6 @@ public class PersonsControllerTest : IClassFixture<CustomWebApplicationFactory>
         var postResponse = await _client.PostAsync(postUrl, content);
 
         // Assert: Missing antiforgery token is throwing NotFound (404) in test environment.
-        // So we assert that the request was rejected.
         postResponse.StatusCode.Should().BeOneOf(
             System.Net.HttpStatusCode.BadRequest,
             System.Net.HttpStatusCode.Forbidden,
