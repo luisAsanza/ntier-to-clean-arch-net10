@@ -1,84 +1,79 @@
-﻿@model ViewPersonsViewModel
+@model ViewPersonsViewModel
 @{
-	ViewBag.Title = "Persons";
+    ViewBag.Title = "Persons";
 }
 
-<h1>Persons</h1>
-<a asp-controller="Persons" asp-action="Create">Create Person</a>
-<a asp-controller="Persons" asp-action="PersonsPDF" target="_blank" class="ml">Download as PDF</a>
-<a asp-controller="Persons" asp-action="PersonsCSV" target="_blank" class="ml">Download as CSV</a>
-<a asp-controller="Persons" asp-action="PersonsExcel" target="_blank" class="ml">Download as Excel</a>
+<div class="container">
+  <section class="page-header">
+    <div class="header-inner">
+      <h1>People</h1>
+      <div class="actions">
+        <a asp-controller="Persons" asp-action="Create" class="btn btn-primary">New Person</a>
+        <div class="export">
+          <a asp-controller="Persons" asp-action="PersonsCSV" target="_blank" class="btn btn-ghost">CSV</a>
+          <a asp-controller="Persons" asp-action="PersonsExcel" target="_blank" class="btn btn-ghost">Excel</a>
+          <a asp-controller="Persons" asp-action="PersonsPDF" target="_blank" class="btn btn-ghost">PDF</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<form asp-controller="Persons" asp-action="Index" method="get">
-	<div class="box flex">
-		<div class="flex-1">
-			<select asp-for="SearchRequest.SearchColumn" class="form-input">
-				@foreach (var searchOption in Model.SearchOptions)
-				{
-					if (searchOption.Value == Model.SearchRequest.SearchColumn?.ToString())
-					{
-						<option value="@searchOption.Value" selected>@searchOption.Text</option>
-					}
-					else
-					{
-						<option value="@searchOption.Value">@searchOption.Text</option>
-					}
-				}
-			</select>
-		</div>
-		<div class="flex-1">
-			<input asp-for="SearchRequest.SearchTerm" type="search" class="form-input" placeholder="Search" />
-		</div>
-		<div class="flex-1">
-			<button class="button button-blue-back" type="submit">Search</button>
-			<a asp-controller="Persons" asp-action="Index" class="link-hover">Clear all</a>
-		</div>
-	</div>
-</form>
+  <form asp-controller="Persons" asp-action="Index" method="get" class="search-form">
+    <div class="search-grid">
+      <select asp-for="SearchRequest.SearchColumn" class="form-input">
+        @foreach (var searchOption in Model.SearchOptions)
+        {
+            if (searchOption.Value == Model.SearchRequest.SearchColumn?.ToString())
+            {
+                <option value="@searchOption.Value" selected>@searchOption.Text</option>
+            }
+            else
+            {
+                <option value="@searchOption.Value">@searchOption.Text</option>
+            }
+        }
+      </select>
 
-<table class="table w-100 mt">
-	<colgroup>
-		<col style="width:15%">  <!-- Person Name -->
-		<col style="width:20%">  <!-- Email -->
-		<col style="width:12%">  <!-- Date Of Birth -->
-		<col style="width:6%">   <!-- Age -->
-		<col style="width:8%">   <!-- Gender -->
-		<col style="width:10%">  <!-- Country -->
-		<col style="width:18%">  <!-- Address -->
-		<col style="width:11%">   <!-- Receive News Letter -->
-		<col style="width:20%">   <!-- Action buttons -->
-	</colgroup>
-	<thead>
-		<tr>
-			@foreach(var option in Model.SearchOptions)
-			{
+      <input asp-for="SearchRequest.SearchTerm" type="search" class="form-input" placeholder="Search people, email or country" />
+
+      <div class="search-actions">
+        <button class="btn btn-primary" type="submit">Search</button>
+        <a asp-controller="Persons" asp-action="Index" class="link-muted">Clear</a>
+      </div>
+    </div>
+  </form>
+
+  <table class="person-table">
+    <thead>
+      <tr>
+        @foreach(var option in Model.SearchOptions)
+        {
                 var partialModel = new ViewPersonsColumnHeaderViewModel();
                 partialModel.SearchRequest = Model.SearchRequest;
                 partialModel.Column = option;
-				<th>
-					<partial name="_GridColumnHeader" model="partialModel" />
-				</th>
-			}
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var person in Model.Persons)
-		{
-			<tr>
-				<td>@person.Name</td>
-				<td>@person.Email</td>
-				<td>@person.DateOfBirth?.ToString("dd MM yyyy")</td>
-				<td>@person.Age</td>
-				<td>@person.Gender</td>
-				<td>@person.CountryName</td>
-				<td>@person.Address</td>
-				<td>@person.ReceiveNewsLetters</td>
-				<td>
-					<a asp-controller="Persons" asp-action="Edit" asp-route-personId="@person.Id">Edit</a>
-					<a asp-controller="Persons" asp-action="Delete" asp-route-personId="@person.Id">Delete</a>
-				</td>
-			</tr>
-		}
-	</tbody>
-</table>
+            <th><partial name="_GridColumnHeader" model="partialModel" /></th>
+        }
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var person in Model.Persons)
+      {
+        <tr>
+          <td>@person.Name</td>
+          <td>@person.Email</td>
+          <td>@person.DateOfBirth?.ToString("dd MM yyyy")</td>
+          <td>@person.Age</td>
+          <td>@person.Gender</td>
+          <td>@person.CountryName</td>
+          <td>@person.Address</td>
+          <td>@person.ReceiveNewsLetters</td>
+          <td class="actions-cell">
+            <a asp-controller="Persons" asp-action="Edit" asp-route-personId="@person.Id" class="action-link">Edit</a>
+            <a asp-controller="Persons" asp-action="Delete" asp-route-personId="@person.Id" class="action-link danger">Delete</a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
