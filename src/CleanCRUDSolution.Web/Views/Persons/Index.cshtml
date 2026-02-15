@@ -1,26 +1,58 @@
 @model ViewPersonsViewModel
 @{
-    ViewBag.Title = "Persons";
+    ViewBag.Title = "People";
 }
 
-<div class="container">
-  <section class="page-header">
-    <div class="header-inner">
-      <h1>People</h1>
-      <div class="actions">
-        <a asp-controller="Persons" asp-action="Create" class="btn btn-primary">New Person</a>
-        <div class="export">
-          <a asp-controller="Persons" asp-action="PersonsCSV" target="_blank" class="btn btn-ghost">CSV</a>
-          <a asp-controller="Persons" asp-action="PersonsExcel" target="_blank" class="btn btn-ghost">Excel</a>
-          <a asp-controller="Persons" asp-action="PersonsPDF" target="_blank" class="btn btn-ghost">PDF</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<style>
+  :root{
+    --bg:#f6f9fb;
+    --card:#ffffff;
+    --accent:#1f6feb;
+    --muted:#6b7280;
+    --success:#16a34a;
+  }
+  .page-wrap{max-width:1200px;margin:28px auto;padding:0 18px;font-family:Segoe UI, Roboto, -apple-system, 'Helvetica Neue', Arial;color:#0f172a}
+  .site-header{display:flex;align-items:center;justify-content:space-between;padding:16px 0;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:44px;width:auto}
+  .brand h2{margin:0;font-size:18px;color:var(--accent)}
+  .main-nav{display:flex;gap:18px;align-items:center}
+  .main-nav a{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:8px}
+  .main-nav a:hover{background:rgba(31,111,235,0.08);color:var(--accent)}
+  .header-actions{display:flex;gap:10px;align-items:center}
+  .btn-primary{background:var(--accent);color:#fff;padding:8px 14px;border-radius:10px;text-decoration:none}
+  .btn-ghost{background:transparent;border:1px solid rgba(15,23,42,0.06);padding:6px 10px;border-radius:8px;color:var(--muted);text-decoration:none}
 
-  <form asp-controller="Persons" asp-action="Index" method="get" class="search-form">
-    <div class="search-grid">
-      <select asp-for="SearchRequest.SearchColumn" class="form-input">
+  .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+  .search-row{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+  .form-input{padding:10px 12px;border-radius:8px;border:1px solid #e6eef6;min-width:0}
+  .search-actions{display:flex;gap:8px}
+
+  .table-wrapper{overflow:auto;border-radius:8px;margin-top:10px}
+  .person-table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:900px}
+  .person-table th,.person-table td{padding:14px 12px;border-bottom:1px solid #eef3f8;text-align:left;vertical-align:top;font-size:13px}
+  .person-table th{color:var(--muted);font-weight:600;font-size:12px}
+  .person-table td{white-space:normal;word-break:break-word}
+  .actions-cell{text-align:right;white-space:nowrap}
+  .action-link{margin-left:8px;color:var(--accent);text-decoration:none}
+  .action-link.danger{color:#ef4444}
+
+  /* Responsive: allow table to scroll, but also provide a stacked layout on narrow screens */
+  @@media (max-width:780px){
+    .person-table{min-width:0}
+    .person-table thead{display:none}
+    .person-table, .person-table tbody, .person-table tr, .person-table td{display:block;width:100%}
+    .person-table tr{margin-bottom:12px;background:transparent;padding:12px;border-radius:8px}
+    .person-table td{padding:8px 10px;border-bottom:0}
+    .person-table td:before{content:attr(data-label);display:block;font-weight:600;color:var(--muted);margin-bottom:6px}
+    .actions-cell{text-align:left}
+  }
+</style>
+
+<div class="page-wrap">
+  <div class="card">
+    <form asp-controller="Persons" asp-action="Index" method="get" class="search-row" role="search">
+      <select asp-for="SearchRequest.SearchColumn" class="form-input" style="width:160px">
         @foreach (var searchOption in Model.SearchOptions)
         {
             if (searchOption.Value == Model.SearchRequest.SearchColumn?.ToString())
@@ -34,46 +66,48 @@
         }
       </select>
 
-      <input asp-for="SearchRequest.SearchTerm" type="search" class="form-input" placeholder="Search people, email or country" />
+      <input asp-for="SearchRequest.SearchTerm" type="search" class="form-input" placeholder="Search people, email or country" style="flex:1" />
 
       <div class="search-actions">
-        <button class="btn btn-primary" type="submit">Search</button>
-        <a asp-controller="Persons" asp-action="Index" class="link-muted">Clear</a>
+        <button class="btn-primary" type="submit">Search</button>
+        <a asp-controller="Persons" asp-action="Index" class="btn-ghost">Clear</a>
       </div>
-    </div>
-  </form>
+    </form>
 
-  <table class="person-table">
-    <thead>
-      <tr>
-        @foreach(var option in Model.SearchOptions)
-        {
+    <div class="table-wrapper">
+      <table class="person-table" aria-describedby="people-table">
+        <thead>
+          <tr>
+            @foreach(var option in Model.SearchOptions)
+            {
                 var partialModel = new ViewPersonsColumnHeaderViewModel();
                 partialModel.SearchRequest = Model.SearchRequest;
                 partialModel.Column = option;
-            <th><partial name="_GridColumnHeader" model="partialModel" /></th>
-        }
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var person in Model.Persons)
-      {
-        <tr>
-          <td>@person.Name</td>
-          <td>@person.Email</td>
-          <td>@person.DateOfBirth?.ToString("dd MM yyyy")</td>
-          <td>@person.Age</td>
-          <td>@person.Gender</td>
-          <td>@person.CountryName</td>
-          <td>@person.Address</td>
-          <td>@person.ReceiveNewsLetters</td>
-          <td class="actions-cell">
-            <a asp-controller="Persons" asp-action="Edit" asp-route-personId="@person.Id" class="action-link">Edit</a>
-            <a asp-controller="Persons" asp-action="Delete" asp-route-personId="@person.Id" class="action-link danger">Delete</a>
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
+                <th><partial name="_GridColumnHeader" model="partialModel" /></th>
+            }
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var person in Model.Persons)
+          {
+            <tr>
+              <td data-label="Person Name">@person.Name</td>
+              <td data-label="Email">@person.Email</td>
+              <td data-label="Date Of Birth">@person.DateOfBirth?.ToString("dd MM yyyy")</td>
+              <td data-label="Age">@person.Age</td>
+              <td data-label="Gender">@person.Gender</td>
+              <td data-label="Country">@person.CountryName</td>
+              <td data-label="Address">@person.Address</td>
+              <td data-label="Receive Newsletter">@person.ReceiveNewsLetters</td>
+              <td class="actions-cell" data-label="Actions">
+                <a asp-controller="Persons" asp-action="Edit" asp-route-personId="@person.Id" class="action-link">Edit</a>
+                <a asp-controller="Persons" asp-action="Delete" asp-route-personId="@person.Id" class="action-link danger">Delete</a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
