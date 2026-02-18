@@ -12,6 +12,8 @@ using CleanCRUDSolution.Infrastructure.Persistence;
 using CleanCRUDSolution.Infrastructure.Reporting;
 using CleanCRUDSolution.Infrastructure.Repositories;
 using CleanCRUDSolution.Infrastructure.Time;
+using CleanCRUDSolution.Application.Features.Identity;
+using CleanCRUDSolution.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +46,12 @@ namespace CleanCRUDSolution.Infrastructure
             // Register repositories
             services.AddScoped<ICountriesRepository, CountriesRepository>();
             services.AddScoped<IPersonsRepository, PersonsRepository>();
+
+            // Register identity service implementation
+            services.AddScoped<IIdentityService, IdentityService>();
+            // Register UserManager<ApplicationUser> for IdentityService dependencies
+            services.AddIdentityCore<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             //Register Reporting Service
             services.AddScoped<IPersonReportGeneratorFactory, PersonReportGeneratorFactory>();

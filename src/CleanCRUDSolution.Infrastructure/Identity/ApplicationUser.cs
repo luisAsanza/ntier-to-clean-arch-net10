@@ -21,7 +21,7 @@ namespace CleanCRUDSolution.Infrastructure.Identity
     /// Place profile, business or domain-specific properties (customer data, billing, preferences, etc.)
     /// in separate domain/profile models or related tables.
     /// </remarks>
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<Guid>
     {
     }
 }
