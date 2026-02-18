@@ -27,6 +27,15 @@ namespace CleanCRUDSolution.Web
                 options.LowercaseUrls = true;
             });
 
+            services.AddAuthentication("CookieAuth")
+                .AddCookie("CookieAuth", options =>
+                {
+                    options.Cookie.Name = "CleanCRUDAuthCookie";
+                    options.LoginPath = "/Account/Login";
+                    options.LogoutPath = "/Account/Logout";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                });
+
             // Register Fluent Validation for Web layer
             services.AddValidatorsFromAssemblyContaining<Program>();
 

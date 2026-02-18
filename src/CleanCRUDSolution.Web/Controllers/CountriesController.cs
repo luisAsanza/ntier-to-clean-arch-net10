@@ -2,6 +2,7 @@
 using CleanCRUDSolution.Application.Features.Countries;
 using CleanCRUDSolution.Web.Extensions;
 using CleanCRUDSolution.Web.Models.CountryModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -11,6 +12,7 @@ namespace CleanCRUDSolution.Web.Controllers
     /// Controller that provides endpoints for uploading and managing countries in the web UI.
     /// </summary>
     [Route("[controller]")]
+    [Authorize]
     public class CountriesController : Controller
     {        
         private readonly IBulkUploadCountriesService _bulkUploadCountriesService;

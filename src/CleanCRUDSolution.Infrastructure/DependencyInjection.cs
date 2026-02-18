@@ -50,11 +50,8 @@ namespace CleanCRUDSolution.Infrastructure
             // Register identity service implementation
             services.AddIdentityCore<ApplicationUser>(options =>
                 {
-                    options.Password.RequireDigit = true;
-                    options.Password.RequiredLength = 8;
+                    options.Password.RequiredLength = 5;
                     options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = true;
-                    options.Password.RequireLowercase = true;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
