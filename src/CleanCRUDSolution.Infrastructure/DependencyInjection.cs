@@ -48,10 +48,17 @@ namespace CleanCRUDSolution.Infrastructure
             services.AddScoped<IPersonsRepository, PersonsRepository>();
 
             // Register identity service implementation
-            services.AddScoped<IIdentityService, IdentityService>();
-            // Register UserManager<ApplicationUser> for IdentityService dependencies
-            services.AddIdentityCore<ApplicationUser>()
+            services.AddIdentityCore<ApplicationUser>(options =>
+                {
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireLowercase = true;
+                })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddScoped<IIdentityService, IdentityService>();
 
             //Register Reporting Service
             services.AddScoped<IPersonReportGeneratorFactory, PersonReportGeneratorFactory>();
