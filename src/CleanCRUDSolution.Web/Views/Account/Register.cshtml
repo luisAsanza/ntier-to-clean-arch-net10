@@ -1,48 +1,39 @@
-@model CleanCRUDSolution.Web.ViewModels.Account.RegisterViewModel
+@model CleanCRUDSolution.Web.Models.Account.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
 
-<a asp-controller="Persons" asp-action="Index" class="link-hover">Back to Persons List</a>
-<h2>Register</h2>
-<div asp-validation-summary="ModelOnly" class="text-red"></div>
-<div class="w-50">
+<div class="container">
+  <a asp-controller="Persons" asp-action="Index" class="link-muted">Back to Persons List</a>
+
+  <section class="page-header">
+    <div class="header-inner">
+      <h1>Register</h1>
+    </div>
+  </section>
+
+  <div asp-validation-summary="ModelOnly" class="text-red"></div>
+
+  <div class="card" style="max-width:720px;padding:20px">
     <form asp-controller="Account" asp-action="Register" method="post">
-        <div class="form-field flex">
-            <div class="w-25">
-                <label asp-for="Email" class="form-label pt">Email</label>
-            </div>
-            <div class="flex-1">
-                <input asp-for="Email" class="form-input" />
-                <span asp-validation-for="Email" class="text-red"></span>
-            </div>
-        </div>
+      @Html.AntiForgeryToken()
+      <div style="display:grid;grid-template-columns:1fr;gap:12px">
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" class="form-input" />
+        <span asp-validation-for="Email" class="text-red"></span>
 
-        <div class="form-field flex">
-            <div class="w-25">
-                <label asp-for="Password" class="form-label pt">Password</label>
-            </div>
-            <div class="flex-1">
-                <input asp-for="Password" class="form-input" />
-                <span asp-validation-for="Password" class="text-red"></span>
-            </div>
-        </div>
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" class="form-input" />
+        <span asp-validation-for="Password" class="text-red"></span>
 
-        <div class="form-field flex">
-            <div class="w-25">
-                <label asp-for="ConfirmPassword" class="form-label pt">Confirm Password</label>
-            </div>
-            <div class="flex-1">
-                <input asp-for="ConfirmPassword" class="form-input" />
-                <span asp-validation-for="ConfirmPassword" class="text-red"></span>
-            </div>
-        </div>
+        <label asp-for="ConfirmPassword">Confirm Password</label>
+        <input asp-for="ConfirmPassword" class="form-input" />
+        <span asp-validation-for="ConfirmPassword" class="text-red"></span>
 
-        <div class="form-field flex">
-            <div class="w-25"></div>
-            <div class="flex-1">
-                <button class="button button-green-back">Register</button>
-            </div>
+        <div>
+          <button class="btn btn-primary">Register</button>
         </div>
+      </div>
     </form>
+  </div>
 </div>

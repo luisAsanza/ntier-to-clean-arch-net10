@@ -27,6 +27,23 @@
                         <li><a asp-action="Index" asp-controller="Countries">Upload Countries</a></li>
                     </ul>
                 </nav>
+
+                <div class="auth-actions" style="margin-left:auto; display:flex; align-items:center; gap:12px;">
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <span class="muted">Signed in as</span>
+                        <span class="link-hover" title="Email">@User.Identity?.Name</span>
+
+                        <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline;margin:0;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="link-hover" style="background:none;border:none;padding:0;cursor:pointer;">Logout</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="link-hover">Sign In</a>
+                    }
+                </div>
             </div>
         </header>
 

@@ -3,6 +3,8 @@ using CleanCRUDSolution.Application.Features.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using CleanCRUDSolution.Web.Models.Account;
+using CleanCRUDSolution.Web.Extensions;
 
 namespace CleanCRUDSolution.Web.Controllers
 {
@@ -21,12 +23,12 @@ namespace CleanCRUDSolution.Web.Controllers
         public IActionResult Login(string? returnUrl = null)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View(new ViewModels.Account.LoginViewModel());
+            return View(new LoginViewModel());
         }
 
         [HttpPost("Login")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(ViewModels.Account.LoginViewModel model, string? returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
         {
             ViewBag.ReturnUrl = returnUrl;
             if (!ModelState.IsValid) return View(model);
@@ -58,31 +60,28 @@ namespace CleanCRUDSolution.Web.Controllers
         [HttpGet("Register")]
         public IActionResult Register()
         {
-            return View(new ViewModels.Account.RegisterViewModel());
+            return View(new RegisterViewModel());
         }
 
         [HttpPost("Register")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(ViewModels.Account.RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
 
             var result = await _identityService.CreateUserAsync(model.Email, model.Password);
             if (!result.IsSuccess)
             {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Message);
-                }
+                ModelState.AddApplicationErrors(result.Errors);
                 return View(model);
             }
 
             var userId = result.Value;
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(ClaimTypes.Name, model.Email),
-                new Claim(ClaimTypes.Email, model.Email)
+                new(ClaimTypes.NameIdentifier, userId.ToString()),
+                new(ClaimTypes.Name, model.Email),
+                new(ClaimTypes.Email, model.Email)
             };
 
             var identity = new ClaimsIdentity(claims, "CookieAuth");
