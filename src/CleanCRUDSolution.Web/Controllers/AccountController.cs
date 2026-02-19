@@ -46,10 +46,10 @@ namespace CleanCRUDSolution.Web.Controllers
                 new Claim(ClaimTypes.Email, model.Email)
             };
 
-            var identity = new ClaimsIdentity(claims, "CookieAuth");
+            var identity = new ClaimsIdentity(claims);
             var principal = new ClaimsPrincipal(identity);
 
-            await HttpContext.SignInAsync("CookieAuth", principal);
+            await HttpContext.SignInAsync(principal);
 
             if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);

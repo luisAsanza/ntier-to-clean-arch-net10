@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿
+using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 
 namespace CleanCRUDSolution.Web
@@ -27,8 +29,14 @@ namespace CleanCRUDSolution.Web
                 options.LowercaseUrls = true;
             });
 
-            services.AddAuthentication("CookieAuth")
-                .AddCookie("CookieAuth", options =>
+            services.AddAuthentication(options =>
+                {
+                    // The default scheme for [Authorize] checks
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    // The default scheme for sign-in operations
+                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                })
+                .AddCookie(options =>
                 {
                     options.Cookie.Name = "CleanCRUDAuthCookie";
                     options.LoginPath = "/Account/Login";
