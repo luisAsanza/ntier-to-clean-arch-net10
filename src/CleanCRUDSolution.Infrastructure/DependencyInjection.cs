@@ -49,11 +49,11 @@ namespace CleanCRUDSolution.Infrastructure
 
             // Register identity service implementation
             services.AddIdentityCore<ApplicationUser>(options =>
-                {
-                    options.Password.RequiredLength = 5;
-                    options.Password.RequireNonAlphanumeric = false;
-                })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            {
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IIdentityService, IdentityService>();
 
