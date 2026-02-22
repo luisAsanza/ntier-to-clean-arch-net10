@@ -1,5 +1,4 @@
 ﻿using CleanCRUDSolution.Application.Abstractions;
-using CleanCRUDSolution.Application.Common;
 using CleanCRUDSolution.Application.Common.Enums;
 using CleanCRUDSolution.Application.Common.Events;
 using CleanCRUDSolution.Application.Features.Countries;

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CleanCRUDSolution.Web.Models.Account;
 using CleanCRUDSolution.Web.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CleanCRUDSolution.Web.Controllers
 {
@@ -46,10 +47,15 @@ namespace CleanCRUDSolution.Web.Controllers
                 new Claim(ClaimTypes.Email, model.Email)
             };
 
-            var identity = new ClaimsIdentity(claims);
+            var identity = new ClaimsIdentity(
+                claims: claims,
+                authenticationType: CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
 
-            await HttpContext.SignInAsync(principal);
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                principal,
+                new AuthenticationProperties { IsPersistent = false, ExpiresUtc = DateTime.UtcNow.AddMinutes(30) });
 
             if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
@@ -84,10 +90,20 @@ namespace CleanCRUDSolution.Web.Controllers
                 new(ClaimTypes.Email, model.Email)
             };
 
-            var identity = new ClaimsIdentity(claims, "CookieAuth");
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
 
-            await HttpContext.SignInAsync("CookieAuth", principal);
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme, 
+                principal,
+                new AuthenticationProperties { 
+                    IsPersistent = true, 
+                    ExpiresUtc = DateTime.UtcNow.AddDays(7),
+                    Items =
+                    {
+                        { "AbsoluteExpiration", DateTime.UtcNow.AddDays(7).ToString("o") }
+                    }
+                    });
 
             return RedirectToAction("Index", "Persons");
         }
@@ -96,7 +112,8 @@ namespace CleanCRUDSolution.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync("CookieAuth");
+            await HttpContext.SignOutAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Persons");
         }
 

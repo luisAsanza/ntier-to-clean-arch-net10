@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Caching.Memory;
-using CleanCRUDSolution.Application.Common;
 using AsyncKeyedLock;
 
 namespace CleanCRUDSolution.Infrastructure.Caching

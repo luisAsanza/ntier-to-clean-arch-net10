@@ -35,12 +35,28 @@ namespace CleanCRUDSolution.Web
                 // The default scheme for sign-in operations
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             })
-            .AddCookie(options =>
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
             {
                 options.Cookie.Name = "CleanCRUDAuthCookie";
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";
                 options.AccessDeniedPath = "/Account/AccessDenied";
+                options.ExpireTimeSpan = TimeSpan.FromDays(7);
+                options.Events.OnValidatePrincipal = context =>
+                {
+                    // Validate AuthenticationProperties Items AbsoluteExpiration
+                    if (context.Properties.Items.TryGetValue("AbsoluteExpiration", out var absoluteExpirationString) &&
+                        DateTime.TryParse(absoluteExpirationString, null, System.Globalization.DateTimeStyles.RoundtripKind, out var absoluteExpiration))
+                    {
+                        if (DateTime.UtcNow > absoluteExpiration)
+                        {
+                            context.RejectPrincipal();
+                            return Task.CompletedTask;
+                        }
+                    }
+                    
+                    return Task.CompletedTask;
+                };
             });
 
             // Register Fluent Validation for Web layer

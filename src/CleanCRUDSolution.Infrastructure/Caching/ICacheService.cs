@@ -1,4 +1,4 @@
-namespace CleanCRUDSolution.Application.Common
+namespace CleanCRUDSolution.Infrastructure.Caching
 {
     public interface ICacheService
     {
