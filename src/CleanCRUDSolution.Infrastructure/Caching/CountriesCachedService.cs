@@ -1,5 +1,4 @@
-﻿using CleanCRUDSolution.Application.Common;
-using CleanCRUDSolution.Application.Features.Countries;
+﻿using CleanCRUDSolution.Application.Features.Countries;
 using CleanCRUDSolution.Application.Features.Countries.Enums;
 
 namespace CleanCRUDSolution.Infrastructure.Caching

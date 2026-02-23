@@ -1,108 +1,67 @@
 ﻿@model UpdatePersonViewModel
 @{
-	ViewBag.Title = "Edit Person";
+    ViewBag.Title = "Edit Person";
 }
-<a asp-controller="Persons" asp-action="Index" class="link-hover">Back to Persons List</a>
-<h2>Edit Person</h2>
-<div asp-validation-summary="All"></div>
-<div class="w-50">
-	<form id="EditPersonForm" asp-controller="Persons" asp-action="Edit" asp-route-personId="" method="post">
-		@*Hidden*@
-		<input type="hidden" asp-for="PersonData.Id" />
 
-		@*Person Name*@
-		<div class="form-field flex">
-			<div class="w-25">
-				<label asp-for="PersonData.PersonName" class="form-label pt">Person Name</label>
-			</div>
-			<div class="flex-1">
-				<input asp-for="PersonData.PersonName" disabled class="form-input" />
-                <input type="hidden" asp-for="PersonData.PersonName" />
-				<span asp-validation-for="PersonData.PersonName" class="text-red"></span>
-			</div>
-		</div>
+<div class="container">
+  <a asp-controller="Persons" asp-action="Index" class="link-muted">Back to Persons List</a>
 
-		@*Email*@
-		<div class="form-field flex">
-			<div class="w-25">
-				<label asp-for="PersonData.Email" class="form-label pt">Email</label>
-			</div>
-			<div class="flex-1">
-				<input asp-for="PersonData.Email" class="form-input" />
-				<span asp-validation-for="PersonData.Email" class="text-red"></span>
-			</div>
-		</div>
+  <section class="page-header">
+    <div class="header-inner">
+      <h1>Edit Person</h1>
+    </div>
+  </section>
 
-		@*DateOfBirth*@
-		<div class="form-field flex">
-			<div class="w-25">
-				<label asp-for="PersonData.DateOfBirth" class="form-label pt">Date Of Birth</label>
-			</div>
-			<div class="flex-1">
-				<input asp-for="PersonData.DateOfBirth" class="form-input" />
-				<span asp-validation-for="PersonData.DateOfBirth" class="text-red"></span>
-			</div>
-		</div>
+  <div asp-validation-summary="All"></div>
 
-		@*Gender*@
-		<div class="form-field flex">
-			<div class="w-25">
-				<label class="form-label">Gender</label>
-			</div>
-			<div class="flex-1">
-				@foreach (var gender in Model.GenderOptions)
-				{
-					var uniqueId = $"persondata_gender_{gender.Value}";
-					<input id="@uniqueId" type="radio" asp-for="PersonData.Gender" value="@gender.Value" class="ml" />
-					<label for="@uniqueId">@gender.Text</label>
-				}
-				<span asp-validation-for="PersonData.Gender" class="text-red"></span>
-			</div>
-		</div>
+  <div class="card" style="max-width:720px;padding:20px">
+    <form id="EditPersonForm" asp-controller="Persons" asp-action="Edit" asp-route-personId="" method="post">
+      <input type="hidden" asp-for="PersonData.Id" />
 
-		@*Country*@
-		<div class="form-field flex">
-			<div class="w-25">
-				<label asp-for="PersonData.CountryId" class="form-label pt">Country</label>
-			</div>
-			<div class="flex-1">
-				<select asp-for="PersonData.CountryId" asp-items="Model.CountryOptions" class="form-input">
-					<option value="">Select</option>
-				</select>
-				<span asp-validation-for="PersonData.CountryId" class="text-red"></span>
-			</div>
-		</div>
+      <div style="display:grid;grid-template-columns:1fr;gap:12px">
+        <label asp-for="PersonData.PersonName">Person Name</label>
+        <input asp-for="PersonData.PersonName" disabled class="form-input" />
+        <input type="hidden" asp-for="PersonData.PersonName" />
+        <span asp-validation-for="PersonData.PersonName" class="text-red"></span>
 
-		@*Address*@
-		<div class="form-field flex">
-			<div class="w-25">
-				<label asp-for="PersonData.Address" class="form-label pt">Address</label>
-			</div>
-			<div class="flex-1">
-				<textarea asp-for="PersonData.Address" class="form-input"></textarea>
-				<span asp-validation-for="PersonData.Address" class="text-red"></span>
-			</div>
-		</div>
+        <label asp-for="PersonData.Email">Email</label>
+        <input asp-for="PersonData.Email" class="form-input" />
+        <span asp-validation-for="PersonData.Email" class="text-red"></span>
 
-		@*Receive News Letter*@
-		<div class="form-field flex">
-			<div class="w-25">
-			</div>
-			<div class="flex-1">
-				<input asp-for="PersonData.ReceiveNewsLetters" value="true" />
-				<label asp-for="PersonData.ReceiveNewsLetters" class="form-label">Receive News Letter</label>
-				<span asp-validation-for="PersonData.ReceiveNewsLetters" class="text-red"></span>
-			</div>
-		</div>
+        <label asp-for="PersonData.DateOfBirth">Date Of Birth</label>
+        <input asp-for="PersonData.DateOfBirth" class="form-input" />
+        <span asp-validation-for="PersonData.DateOfBirth" class="text-red"></span>
 
-		@*Submit Button*@
-		<div class="form-field flex">
-			<div class="w-25">
-			</div>
-			<div class="flex-1">
-				<button type="submit" id="UpdatePersonBtn" class="button button-green-back">Update</button>				
-			</div>
-		</div>
+        <label>Gender</label>
+        <div>
+          @foreach (var gender in Model.GenderOptions)
+          {
+              var uniqueId = $"persondata_gender_{gender.Value}";
+              <input id="@uniqueId" type="radio" asp-for="PersonData.Gender" value="@gender.Value" />
+              <label for="@uniqueId" style="margin-right:12px">@gender.Text</label>
+          }
+        </div>
+        <span asp-validation-for="PersonData.Gender" class="text-red"></span>
 
-	</form>
+        <label asp-for="PersonData.CountryId">Country</label>
+        <select asp-for="PersonData.CountryId" asp-items="Model.CountryOptions" class="form-input">
+          <option value="">Select</option>
+        </select>
+        <span asp-validation-for="PersonData.CountryId" class="text-red"></span>
+
+        <label asp-for="PersonData.Address">Address</label>
+        <textarea asp-for="PersonData.Address" class="form-input" rows="3"></textarea>
+        <span asp-validation-for="PersonData.Address" class="text-red"></span>
+
+        <div style="display:flex;align-items:center;gap:8px">
+          <input asp-for="PersonData.ReceiveNewsLetters" class="" />
+          <label asp-for="PersonData.ReceiveNewsLetters">Receive News Letter</label>
+        </div>
+
+        <div>
+          <button type="submit" id="UpdatePersonBtn" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

@@ -1,0 +1,41 @@
+@model CleanCRUDSolution.Web.Models.Account.LoginViewModel
+@{
+        ViewBag.Title = "Login";
+}
+
+<div class="container">
+    <a asp-controller="Persons" asp-action="Index" class="link-muted">Back to Persons List</a>
+
+    <section class="page-header">
+        <div class="header-inner">
+            <h1>Login</h1>
+        </div>
+    </section>
+
+    <div asp-validation-summary="ModelOnly" class="text-red"></div>
+
+    <div class="card" style="max-width:720px;padding:20px">
+        <form asp-controller="Account" asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
+            <div style="display:grid;grid-template-columns:1fr;gap:12px">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-input" />
+                <span asp-validation-for="Email" class="text-red"></span>
+
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" class="form-input" />
+                <span asp-validation-for="Password" class="text-red"></span>
+
+                <div style="display:flex;align-items:center;gap:8px">
+                    <input asp-for="RememberMe" />
+                    <label asp-for="RememberMe">Remember me</label>
+                </div>
+
+                <div>
+                    <button class="btn btn-primary">Login</button>
+                    <a asp-controller="Account" asp-action="Register" class="link-hover ml">Register</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

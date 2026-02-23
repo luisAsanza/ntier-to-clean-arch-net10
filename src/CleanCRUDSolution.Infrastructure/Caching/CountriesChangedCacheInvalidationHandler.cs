@@ -1,5 +1,4 @@
-﻿using CleanCRUDSolution.Application.Common;
-using CleanCRUDSolution.Application.Common.Events;
+﻿using CleanCRUDSolution.Application.Common.Events;
 using CleanCRUDSolution.Infrastructure.Events;
 
 namespace CleanCRUDSolution.Infrastructure.Caching

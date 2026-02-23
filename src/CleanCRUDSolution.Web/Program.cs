@@ -25,15 +25,28 @@ builder.Services.AddWebServices(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the error handling middleware using the built-in ExceptionHandler middleware
-if (!app.Environment.IsDevelopment())
+if(!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // Instead of refirecting, we display the error page content while keeping the original URL
+    // Instead of redirecting, we display the error page content while keeping the original URL
     app.UseStatusCodePagesWithReExecute("/Error/{0}");
     // The default HSTS value is 30 days.
     app.UseHsts();
 }
+
+// Log every request using Serilog. app.UseHttpLogging(); can be removed so it won't generate http requests logs twice
+app.UseSerilogRequestLogging();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+
+if(!app.Environment.IsDevelopment())
+{
+    app.UseCors();
+}
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Use Serilog custom middleware to enrich logs with Username
 app.Use(async (ctx, next) =>
@@ -45,9 +58,6 @@ app.Use(async (ctx, next) =>
 
     await next();
 });
-
-// Log every request using Serilog. app.UseHttpLogging(); can be removed so it won't generate http requests logs twice
-app.UseSerilogRequestLogging();
 
 //Add csp to responses
 if (app.Environment.IsDevelopment())
@@ -67,9 +77,6 @@ else if (app.Environment.IsProduction())
     app.UseCsp();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
 app.MapControllers();
 app.UseRotativa();
 

@@ -8,7 +8,9 @@
       "args": [
         "build",
         "${workspaceFolder}/src/CleanCRUDSolution.Web/CleanCRUDSolution.Web.csproj",
-        "/property:GenerateFullPaths=true"
+        "/property:GenerateFullPaths=true",
+        "--configuration",
+        "Debug"
       ],
       "problemMatcher": "$msCompile",
       "group": {

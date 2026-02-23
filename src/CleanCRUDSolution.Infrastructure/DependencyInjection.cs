@@ -1,5 +1,4 @@
 ﻿using CleanCRUDSolution.Application.Abstractions;
-using CleanCRUDSolution.Application.Common;
 using CleanCRUDSolution.Application.Common.Enums;
 using CleanCRUDSolution.Application.Common.Events;
 using CleanCRUDSolution.Application.Features.Countries;
@@ -12,6 +11,8 @@ using CleanCRUDSolution.Infrastructure.Persistence;
 using CleanCRUDSolution.Infrastructure.Reporting;
 using CleanCRUDSolution.Infrastructure.Repositories;
 using CleanCRUDSolution.Infrastructure.Time;
+using CleanCRUDSolution.Application.Features.Identity;
+using CleanCRUDSolution.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +45,16 @@ namespace CleanCRUDSolution.Infrastructure
             // Register repositories
             services.AddScoped<ICountriesRepository, CountriesRepository>();
             services.AddScoped<IPersonsRepository, PersonsRepository>();
+
+            // Register identity service implementation
+            services.AddIdentityCore<ApplicationUser>(options =>
+            {
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddScoped<IIdentityService, IdentityService>();
 
             //Register Reporting Service
             services.AddScoped<IPersonReportGeneratorFactory, PersonReportGeneratorFactory>();

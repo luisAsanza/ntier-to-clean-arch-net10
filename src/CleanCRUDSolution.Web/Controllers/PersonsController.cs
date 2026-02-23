@@ -10,12 +10,14 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Rotativa.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CleanCRUDSolution.Web.Controllers
 {
     /// <summary>
     /// MVC controller responsible for CRUD operations and report generation for Persons.
     /// </summary>
+    [Authorize]
     [Route("[controller]")]
     public class PersonsController : Controller
     {
@@ -42,6 +44,7 @@ namespace CleanCRUDSolution.Web.Controllers
             _personDataValidator = personDataValidator;
         }
 
+        [AllowAnonymous]
         [HttpGet("/")]
         public async Task<IActionResult> Index(ViewPersonsViewModel model)
         {

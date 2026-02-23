@@ -1,9 +1,11 @@
 ﻿using CleanCRUDSolution.Domain.Entities;
+using CleanCRUDSolution.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanCRUDSolution.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public DbSet<Person> Persons { get; set; }
         public DbSet<Country> Countries { get; set; }
