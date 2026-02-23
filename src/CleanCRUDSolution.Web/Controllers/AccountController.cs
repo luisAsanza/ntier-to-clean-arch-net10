@@ -55,7 +55,10 @@ namespace CleanCRUDSolution.Web.Controllers
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 principal,
-                new AuthenticationProperties { IsPersistent = false, ExpiresUtc = DateTime.UtcNow.AddMinutes(30) });
+                new AuthenticationProperties { 
+                    IsPersistent = true,
+                    Items = { { "AbsoluteExpirationTicks", DateTime.UtcNow.AddHours(5).Ticks.ToString() } }
+                    });
 
             if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
@@ -97,12 +100,8 @@ namespace CleanCRUDSolution.Web.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme, 
                 principal,
                 new AuthenticationProperties { 
-                    IsPersistent = true, 
-                    ExpiresUtc = DateTime.UtcNow.AddDays(7),
-                    Items =
-                    {
-                        { "AbsoluteExpiration", DateTime.UtcNow.AddDays(7).ToString("o") }
-                    }
+                    IsPersistent = true,
+                    Items = { { "AbsoluteExpirationTicks", DateTime.UtcNow.AddHours(5).Ticks.ToString() } }
                     });
 
             return RedirectToAction("Index", "Persons");

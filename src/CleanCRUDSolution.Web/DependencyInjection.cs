@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Globalization;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 
@@ -41,20 +42,42 @@ namespace CleanCRUDSolution.Web
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";
                 options.AccessDeniedPath = "/Account/AccessDenied";
-                options.ExpireTimeSpan = TimeSpan.FromDays(7);
+                // NOTE: This 30-minute sliding expiration is an idle timeout.
+                // The Login/Register actions set an AbsoluteExpirationTicks of 5 hours
+                // to enforce a hard maximum session lifetime. The shorter sliding timeout
+                // here is intentional and complements the longer absolute expiration.
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.SlidingExpiration = true;
                 options.Events.OnValidatePrincipal = context =>
                 {
-                    // Validate AuthenticationProperties Items AbsoluteExpiration
-                    if (context.Properties.Items.TryGetValue("AbsoluteExpiration", out var absoluteExpirationString) &&
-                        DateTime.TryParse(absoluteExpirationString, null, System.Globalization.DateTimeStyles.RoundtripKind, out var absoluteExpiration))
+                    // 1. Validate Security Stamp or other user data here if needed (TODO)
+
+                    // 2. If identity rejected the Principal
+                    if(context.Principal == null)
                     {
-                        if (DateTime.UtcNow > absoluteExpiration)
-                        {
-                            context.RejectPrincipal();
-                            return Task.CompletedTask;
-                        }
+                        return Task.CompletedTask;
                     }
-                    
+
+                    // 3. If AbsoluteExpirationTicks is not present, reject the Principal
+                    if (!context.Properties.Items.TryGetValue("AbsoluteExpirationTicks", out var absoluteExpirationTicksString))
+                    {
+                        context.RejectPrincipal();
+                        return Task.CompletedTask;
+                    }
+
+                    // 4. If AbsoluteExpirationTicks is present but invalid, reject the Principal
+                    if (!long.TryParse(absoluteExpirationTicksString, out var absoluteExpirationTicks))
+                    {
+                        context.RejectPrincipal();
+                        return Task.CompletedTask;
+                    }
+
+                    if (absoluteExpirationTicks < DateTime.UtcNow.Ticks)
+                    {
+                        context.RejectPrincipal();
+                        return Task.CompletedTask;
+                    }
+
                     return Task.CompletedTask;
                 };
             });
