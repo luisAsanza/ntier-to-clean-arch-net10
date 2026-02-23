@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CleanCRUDSolution.Web.Models.Account;
 using CleanCRUDSolution.Web.Extensions;
+using Microsoft.Extensions.Options;
+using CleanCRUDSolution.Web.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CleanCRUDSolution.Web.Controllers
@@ -14,10 +16,12 @@ namespace CleanCRUDSolution.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IIdentityService _identityService;
+        private readonly AuthCookieOptions _cookieOptions;
 
-        public AccountController(IIdentityService identityService)
+        public AccountController(IIdentityService identityService, IOptions<AuthCookieOptions> cookieOptions)
         {
             _identityService = identityService;
+            _cookieOptions = cookieOptions.Value;
         }
 
         [HttpGet("Login")]
@@ -57,7 +61,7 @@ namespace CleanCRUDSolution.Web.Controllers
                 principal,
                 new AuthenticationProperties { 
                     IsPersistent = true,
-                    Items = { { "AbsoluteExpirationTicks", DateTime.UtcNow.AddHours(5).Ticks.ToString() } }
+                    Items = { { "AbsoluteExpirationTicks", DateTime.UtcNow.AddHours(_cookieOptions.AbsoluteExpirationHours).Ticks.ToString() } }
                     });
 
             if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
@@ -101,7 +105,7 @@ namespace CleanCRUDSolution.Web.Controllers
                 principal,
                 new AuthenticationProperties { 
                     IsPersistent = true,
-                    Items = { { "AbsoluteExpirationTicks", DateTime.UtcNow.AddHours(5).Ticks.ToString() } }
+                    Items = { { "AbsoluteExpirationTicks", DateTime.UtcNow.AddHours(_cookieOptions.AbsoluteExpirationHours).Ticks.ToString() } }
                     });
 
             return RedirectToAction("Index", "Persons");

@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using FluentValidation;
+using CleanCRUDSolution.Web.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 
@@ -28,6 +29,12 @@ namespace CleanCRUDSolution.Web
             {
                 options.LowercaseUrls = true;
             });
+
+            // Bind Auth Cookie options from configuration (Options pattern)
+            services.AddOptions<AuthCookieOptions>()
+            .Bind(configuration.GetSection("Auth:Cookie"))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
             services.AddAuthentication(options =>
             {
